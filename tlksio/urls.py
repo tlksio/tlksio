@@ -17,6 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from . import views
+from talks import views as talk_views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -25,6 +26,9 @@ urlpatterns = [
     url(r'^contactus', views.contactus, name='contactus'),
     url(r'^terms', views.terms, name='terms'),
     url(r'^privacy', views.privacy, name='privacy'),
+
+    url(r'^latest', talk_views.latest, name='latest'),
+    url(r'^popular', talk_views.popular, name='popular'),
 
     url(r'^admin/', admin.site.urls),
 ]
