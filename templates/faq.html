@@ -1,13 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-{% include "partials/head.html" %}
+    {% include "partials/head.html" %}
 </head>
 <body>
 
 {% include "partials/navbar.html" %}
 
-faq
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12"><h1>Frequently Asked Questions</h1>
+            <hr>
+            <p>
+                <a href="http://tlks.io">tlks.io</a>
+                <span>is the perfect place to showcase, discover, and discuss the best technical talks by the most influential speakers on the internet.</span>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <hr>
+            <h3>What is talks.io?</h3>
+            <p>Developers, and enthusiasts about technology gather every day on
+                <a href="http://tlks.io">tlks.io</a>
+                <span>to share and discuss the best technical talks on the internet that helps them to learn and improve their skills.</span>
+            </p>
+            <h3>How does it work?</h3>
+            <p>Whenever you find a great talk or keynote that you enjoyed watching (including your own talks), you're
+                more than welcome to submit it on
+                <a href="http://tlks.io">tlks.io</a>.
+            </p>
+            <h3>Which languages are supported on the talks?</h3>
+            <p>By default, all talks we have published are in english. However, if you want to publish a talk with a
+                different language, we recomend you to use a tag which specified the language the talk is spoken.</p>
+        </div>
+    </div>
+</div>
 
 {% include "partials/footer.html" %}
 {% include "partials/js.html" %}
