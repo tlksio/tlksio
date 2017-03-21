@@ -1,5 +1,7 @@
 from django.db import models
 
+from taggit.managers import TaggableManager
+
 
 class Talk(models.Model):
     # id
@@ -9,7 +11,7 @@ class Talk(models.Model):
     speaker = models.CharField(max_length=100)
     # author
     description = models.TextField()
-    # tags
+    tags = TaggableManager()
     created = models.DateTimeField('date created')
     updated = models.DateTimeField('date updated')
     view_count = models.IntegerField('view count')
