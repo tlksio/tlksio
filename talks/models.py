@@ -2,6 +2,7 @@ from django.db import models
 
 from taggit.managers import TaggableManager
 
+from django.contrib.auth.models import User
 
 class Talk(models.Model):
     # id
@@ -16,8 +17,16 @@ class Talk(models.Model):
     updated = models.DateTimeField('date updated')
     view_count = models.IntegerField('view count')
     vote_count = models.IntegerField('vote count')
-    # votes
     fav_count = models.IntegerField('favorite count')
-    # favorites
     # ranking
     # type
+
+
+class Vote(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    talk = models.ForeignKey(Talk, on_delete=models.CASCADE)
+
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    talk = models.ForeignKey(Talk, on_delete=models.CASCADE)
