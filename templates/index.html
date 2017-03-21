@@ -1,13 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-{% include "partials/head.html" %}
+    {% include "partials/head.html" %}
 </head>
 <body>
 
 {% include "partials/navbar.html" %}
 
-body
+<div class="container search-form">
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Search</h2>
+            <hr>
+            <form method="get" action="/search" class="form-inline">
+                <div style="display:table;" class="form-group">
+                    <input type="search" name="q" id="q"
+                           placeholder="Search talks" autofocus="autofocus"
+                           autocomplete="off"
+                           class="form-control input-lg search-string">
+                    <span class="input-group-btn input-group-addon">
+                        <button type="submit" class="btn btn-defaultn"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container latest-talks">
+    <div class="row">
+        <div class="col-xs-12 talk-list">
+            <h2>Latest talks</h2>
+            <hr>
+            <div class="row">
+                <div class="col-xs-3"><a href="/latest">View more...</a></div>
+                <div class="col-xs-9"></div>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+
+<div class="container popular-talks">
+    <div class="row">
+        <div class="col-xs-12 talk-list">
+            <h2>Popular talks</h2>
+            <hr>
+            <div class="row">
+                <div class="col-xs-3"><a href="/popular">View more...</a></div>
+                <div class="col-xs-9"></div>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
 
 {% include "partials/footer.html" %}
 {% include "partials/js.html" %}

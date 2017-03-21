@@ -3,6 +3,9 @@
 import os
 import sys
 import django
+from datetime import datetime
+
+from django.utils import timezone
 
 sys.path.append("/Users/raul/Projects/tlksio")
 os.environ["DJANGO_SETTINGS_MODULE"] = "tlksio.settings"
@@ -41,6 +44,10 @@ for talk in all_talks:
     t.vote_count = talk['voteCount']
     t.fav_count = talk['favoriteCount']
     t.author = User.objects.get(username=talk['author']['username'])
+    dt = datetime.utcfromtimestamp(talk['created']/1000.0)
+    dt_aware = timezone.make_aware(dt, timezone.get_current_timezone())
+    t.created = dt_aware
+    t.updated = dt_aware
     t.save()
 
     for tag in talk['tags']:
@@ -71,3 +78,5 @@ for talk in all_talks:
         v.user = uu
         v.talk = t
         v.save()
+
+    print('.', end='', flush=True)
