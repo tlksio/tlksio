@@ -15,3 +15,8 @@ def faq(request):
     template = loader.get_template('faq.html')
     context = {}
     return HttpResponse(template.render(context, request))
+
+def contactus(request):
+    template = loader.get_template('contactus.html')
+    context = {}
+    return HttpResponse(template.render(context, request))

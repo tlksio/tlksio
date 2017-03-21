@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^about', views.about, name='about'),
     url(r'^faq', views.faq, name='faq'),
+    url(r'^contactus', views.contactus, name='contactus'),
 
     url(r'^admin/', admin.site.urls),
 ]
