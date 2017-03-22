@@ -30,7 +30,9 @@ urlpatterns = [
     url(r'^latest', talk_views.latest, name='latest'),
     url(r'^popular', talk_views.popular, name='popular'),
 
-    url(r'tag/(?P<tag_slug>[\w-]+)', talk_views.tag, name='tag'),
+    url(r'^tag/(?P<tag_slug>[\w-]+)', talk_views.tag, name='tag'),
+
+    url(r'^talk/(?P<talk_slug>[\w-]+)', talk_views.talk, name='talk'),
 
     url(r'^admin/', admin.site.urls),
 ]

@@ -13,12 +13,24 @@
             <h2>Latest talks</h2>
             <hr>
             {% for talk in latest %}
-                {{ talk.title }}
+                {% include "partials/talk_list_item.html" %}
                 <hr>
             {% endfor %}
-            <div class="row">
-                <div class="col-xs-3"><a href="/latest">View more...</a></div>
-                <div class="col-xs-9"></div>
+            <hr>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if latest.has_previous %}
+                        <a href="?page={{ latest.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ latest.number }} of {{ latest.paginator.num_pages }}.
+                    </span>
+
+                    {% if latest.has_next %}
+                        <a href="?page={{ latest.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
             </div>
             <hr>
         </div>

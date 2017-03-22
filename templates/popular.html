@@ -13,12 +13,24 @@
             <h2>Popular talks</h2>
             <hr>
             {% for talk in popular %}
-                {{ talk.title }}
+                {% include "partials/talk_list_item.html" %}
                 <hr>
             {% endfor %}
-            <div class="row">
-                <div class="col-xs-3"><a href="/popular">View more...</a></div>
-                <div class="col-xs-9"></div>
+            <hr>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if popular.has_previous %}
+                        <a href="?page={{ popular.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ popular.number }} of {{ popular.paginator.num_pages }}.
+                    </span>
+
+                    {% if popular.has_next %}
+                        <a href="?page={{ popular.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
             </div>
             <hr>
         </div>
