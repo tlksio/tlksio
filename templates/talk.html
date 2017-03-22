@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "partials/head.html" %}
+</head>
+<body>
+
+{% include "partials/navbar.html" %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 talk-view">
+            <h2>{{ talk.title }}</h2>
+            <hr>
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="embed-responsive">
+                        <iframe width="640" height="360" src="https://www.youtube.com/embed/{{ talk.code }}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    foo
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "partials/footer.html" %}
+{% include "partials/js.html" %}
+</body>
+</html>

@@ -55,3 +55,14 @@ def tag(request, tag_slug):
         "items": items,
     }
     return HttpResponse(template.render(context, request))
+
+
+def talk(request, talk_slug):
+    template = loader.get_template('talk.html')
+
+    item = Talk.objects.get(slug=talk_slug)
+
+    context = {
+        "talk": item,
+    }
+    return HttpResponse(template.render(context, request))
