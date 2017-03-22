@@ -7,10 +7,10 @@ from talks.models import Talk
 def latest(request):
     template = loader.get_template('latest.html')
 
-    latest = Talk.objects.all()[:25]
+    items = Talk.objects.all()[:25]
 
     context = {
-        "latest": latest,
+        "latest": items,
     }
     return HttpResponse(template.render(context, request))
 
@@ -18,9 +18,9 @@ def latest(request):
 def popular(request):
     template = loader.get_template('popular.html')
 
-    popular = Talk.objects.order_by('vote_count')[:25]
+    items = Talk.objects.order_by('-vote_count')[:25]
 
     context = {
-        "popular": popular,
+        "popular": items,
     }
     return HttpResponse(template.render(context, request))

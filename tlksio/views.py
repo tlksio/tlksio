@@ -8,7 +8,7 @@ def index(request):
     template = loader.get_template('index.html')
 
     latest = Talk.objects.all()[:5]
-    popular = Talk.objects.order_by('vote_count')[:5]
+    popular = Talk.objects.order_by('-vote_count')[:5]
 
     context = {
         "latest": latest,
