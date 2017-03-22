@@ -16,6 +16,23 @@
                 {% include "partials/talk_list_item.html" %}
                 <hr>
             {% endfor %}
+            <hr>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if latest.has_previous %}
+                        <a href="?page={{ latest.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ latest.number }} of {{ latest.paginator.num_pages }}.
+                    </span>
+
+                    {% if latest.has_next %}
+                        <a href="?page={{ latest.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+            <hr>
         </div>
     </div>
 </div>
