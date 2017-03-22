@@ -6,5 +6,5 @@ deps:
 	pip install django-taggit
 
 migrate:
-    ./manage.py makemigrations
+	./manage.py makemigrations
 	./manage.py migrate
