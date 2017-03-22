@@ -10,9 +10,9 @@
 <div class="container latest-talks">
     <div class="row">
         <div class="col-xs-12 talk-list">
-            <h2>Latest talks</h2>
+            <h2>Talks tagged as: {{ tag }}</h2>
             <hr>
-            {% for talk in latest %}
+            {% for talk in items %}
                 {% include "partials/talk_list_item.html" %}
                 <hr>
             {% endfor %}

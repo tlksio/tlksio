@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.template import loader
 
 from talks.models import Talk
+from taggit.models import Tag
 
 
 def latest(request):
@@ -25,13 +26,15 @@ def popular(request):
     }
     return HttpResponse(template.render(context, request))
 
+
 def tag(request, tag_slug):
-    print(tag_slug)
     template = loader.get_template('tag.html')
 
     items = Talk.objects.filter(tags__name__in=[tag_slug])[:25]
+    tag = Tag.objects.get(slug=tag_slug)
 
     context = {
-        "latest": items,
+        "tag": tag,
+        "items": items,
     }
     return HttpResponse(template.render(context, request))
