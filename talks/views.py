@@ -18,7 +18,7 @@ def latest(request):
 def popular(request):
     template = loader.get_template('popular.html')
 
-    items = Talk.objects.order_by('vote_count')[:25]
+    items = Talk.objects.order_by('-vote_count')[:25]
 
     context = {
         "popular": items,
