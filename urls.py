@@ -16,16 +16,16 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from . import views
+from tlksio import views as main_views
 from talks import views as talk_views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^about', views.about, name='about'),
-    url(r'^faq', views.faq, name='faq'),
-    url(r'^contactus', views.contactus, name='contactus'),
-    url(r'^terms', views.terms, name='terms'),
-    url(r'^privacy', views.privacy, name='privacy'),
+    url(r'^$', main_views.index, name='index'),
+    url(r'^about', main_views.about, name='about'),
+    url(r'^faq', main_views.faq, name='faq'),
+    url(r'^contactus', main_views.contactus, name='contactus'),
+    url(r'^terms', main_views.terms, name='terms'),
+    url(r'^privacy', main_views.privacy, name='privacy'),
 
     url(r'^latest', talk_views.latest, name='latest'),
     url(r'^popular', talk_views.popular, name='popular'),
