@@ -33,7 +33,7 @@
             <h2>Latest talks</h2>
             <hr>
             {% for talk in latest %}
-                {{ talk.title }}
+                {% include "partials/talk_list_item.html" %}
                 <hr>
             {% endfor %}
             <div class="row">
@@ -51,7 +51,7 @@
             <h2>Popular talks</h2>
             <hr>
             {% for talk in popular %}
-                {{ talk.title }}
+                {% include "partials/talk_list_item.html" %}
                 <hr>
             {% endfor %}
             <div class="row">

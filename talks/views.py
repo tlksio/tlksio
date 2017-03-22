@@ -24,3 +24,13 @@ def popular(request):
         "popular": items,
     }
     return HttpResponse(template.render(context, request))
+
+def tag(request):
+    template = loader.get_template('latest.html')
+
+    items = Talk.objects.all()[:25]
+
+    context = {
+        "latest": items,
+    }
+    return HttpResponse(template.render(context, request))

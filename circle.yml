@@ -1,0 +1,8 @@
+dependencies:
+  override:
+    - pip install Django
+    - make deps
+
+test:
+  override:
+    - python manage.py test

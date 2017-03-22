@@ -1,0 +1,19 @@
+<div class="row talk">
+    <div class="col-xs-2 thumb">
+        <a href="/talk/play/{{ talk.slug }}">
+            <img src="http://img.youtube.com/vi/{{ talk.code }}/mqdefault.jpg" title="{{ talk.title }}" class="img-responsive img-circle thumbnail">
+        </a>
+    </div>
+    <div class="col-xs-9 content">
+        <h3 class="title">
+            <a href="/talk/{{ talk.slug }}">{{ talk.title }}</a>
+        </h3>
+        <p class="description">{{ talk.description }}</p>
+        <div class="tags">
+            {% for tag in talk.tags.all %}
+                <a href="/tag/{{ tag.slug }}" class="tag">{{ tag.name }}</a>
+            {%  endfor %}
+        </div>
+    </div>
+    <div class="col-xs-1">controls</div>
+</div>
