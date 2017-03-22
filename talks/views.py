@@ -25,10 +25,11 @@ def popular(request):
     }
     return HttpResponse(template.render(context, request))
 
-def tag(request):
-    template = loader.get_template('latest.html')
+def tag(request, tag_slug):
+    print(tag_slug)
+    template = loader.get_template('tag.html')
 
-    items = Talk.objects.all()[:25]
+    items = Talk.objects.filter(tags__name__in=[tag_slug])[:25]
 
     context = {
         "latest": items,

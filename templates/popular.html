@@ -13,14 +13,9 @@
             <h2>Popular talks</h2>
             <hr>
             {% for talk in popular %}
-                {{ talk.title }}
+                {% include "partials/talk_list_item.html" %}
                 <hr>
             {% endfor %}
-            <div class="row">
-                <div class="col-xs-3"><a href="/popular">View more...</a></div>
-                <div class="col-xs-9"></div>
-            </div>
-            <hr>
         </div>
     </div>
 </div>
