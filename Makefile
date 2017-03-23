@@ -9,7 +9,9 @@ clean:
 deps:
 	pip3 install Django
 	pip3 install django-taggit
+	pip3 install django-haystack
 	pip3 install pymongo
+	pip3 install whoosh
 
 migrate:
 	python3 manage.py makemigrations
