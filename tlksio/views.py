@@ -45,3 +45,15 @@ def privacy(request):
     template = loader.get_template('privacy.html')
     context = {}
     return HttpResponse(template.render(context, request))
+
+
+def activity(request):
+    template = loader.get_template('activity.html')
+
+    latest = Talk.objects.all()[:25]
+
+    context = {
+        "latest": latest,
+    }
+
+    return HttpResponse(template.render(context, request))

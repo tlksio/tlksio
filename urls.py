@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^contactus', main_views.contactus, name='contactus'),
     url(r'^terms', main_views.terms, name='terms'),
     url(r'^privacy', main_views.privacy, name='privacy'),
+    url(r'^activity', main_views.activity, name='activity'),
 
     url(r'^latest', talk_views.latest, name='latest'),
     url(r'^popular', talk_views.popular, name='popular'),
