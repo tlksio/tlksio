@@ -1,0 +1,49 @@
+body{
+  font-family:'Droid Serif',serif
+}
+
+.title,h1,h2,h3,h4,h5,h6{
+  font-family:'Oswald',sans-serif
+}
+
+a.tag {
+  background-color: #cccccc;
+  color: #666666;
+  font-size: 1.25rem;
+  margin-right: 5px;
+  font-weight: 400;
+}
+
+ul.share-buttons {
+  list-style: none;
+  padding: 0;
+}
+
+ul.share-buttons li {
+  display: inline;
+  padding-right: 10px;
+}
+
+div.talk h3 {
+  margin-top: 0;
+}
+
+.search-form .input-group-addon {
+  cursor: pointer;
+  padding: 0;
+}
+
+.search-form .search-string {
+  width: 100%;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.search-form .input-group-addon button {
+  padding: 12px;
+  border: 0;
+}
+
+footer {
+  margin-bottom: 25px;
+}

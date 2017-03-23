@@ -25,7 +25,7 @@ SECRET_KEY = 'd55n!7-pr6f2(+^4nf-7qt-68#2pbdic!pq21y4&=)+=_!=omo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['vps123446.vps.ovh.ca']
 
 
 # Application definition
@@ -120,3 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/home/raul/tlksio/'
+STATICFILES_DIRS = [
+    '/home/raul/tlksio/static/',
+]

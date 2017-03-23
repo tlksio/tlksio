@@ -1,10 +1,15 @@
+runserver:
+	python3 manage.py runserver vps123446.vps.ovh.ca:8080
+
 clean:
 	find . -name "*.pyc" -delete
 	find . -name ".DS_Store" -delete
 
 deps:
-	pip install django-taggit
+	pip3 install Django
+	pip3 install django-taggit
+	pip3 install pymongo
 
 migrate:
-	./manage.py makemigrations
-	./manage.py migrate
+	python3 manage.py makemigrations
+	python3 manage.py migrate

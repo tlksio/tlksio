@@ -7,7 +7,7 @@ from datetime import datetime
 
 from django.utils import timezone
 
-sys.path.append("/Users/raul/Projects/tlksio")
+sys.path.append("/home/raul/tlksio")
 os.environ["DJANGO_SETTINGS_MODULE"] = "tlksio.settings"
 django.setup()
 

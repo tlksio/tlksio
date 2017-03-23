@@ -14,19 +14,36 @@
             <hr>
             <div class="row">
                 <div class="col-xs-8">
-                    <div class="embed-responsive">
-                        <iframe width="640" height="360" src="https://www.youtube.com/embed/{{ talk.code }}" frameborder="0" allowfullscreen></iframe>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" width="640" height="360" src="https://www.youtube.com/embed/{{ talk.code }}" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
                 <div class="col-xs-4">
                     foo
-                    <p></p>
-                    <p></p>
-                    <p></p>
-                    <p></p>
-                    <p></p>
                 </div>
             </div>
+            <hr>
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>{{ talk.description }}</p>
+                    <div class="tags">
+                        {% for tag in talk.tags.all %}
+                            <a href="/tag/{{ tag.slug }}" class="label label-default tag">{{ tag.name }}</a>
+                        {%  endfor %}
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <ul class="share-buttons">
+                <li><a href="#" target="_blank" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&amp;t=' + encodeURIComponent(document.URL)); return false;"><i class="fa fa-facebook-square fa-2x"></i></a></li>
+                <li><a href="#" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20' + encodeURIComponent(document.URL)); return false;"><i class="fa fa-twitter-square fa-2x"></i></a></li>
+                <li><a href="#" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"><i class="fa fa-google-plus-square fa-2x"></i></a></li>
+                <li><a href="#" target="_blank" title="Post to Tumblr" onclick="window.open('http://www.tumblr.com/share?v=3&amp;u=' + encodeURIComponent(document.URL) + '&amp;t=' +  encodeURIComponent(document.title)); return false;"><i class="fa fa-tumblr-square fa-2x"></i></a></li>
+                <li><a href="#" target="_blank" title="Pin it" onclick="window.open('http://pinterest.com/pin/create/button/?url=' + encodeURIComponent(document.URL) + '&amp;description=' +  encodeURIComponent(document.title)); return false;"><i class="fa fa-pinterest-square fa-2x"></i></a></li>
+                <li><a href="#" target="_blank" title="Submit to Reddit" onclick="window.open('http://www.reddit.com/submit?url=' + encodeURIComponent(document.URL) + '&amp;title=' +  encodeURIComponent(document.title)); return false;"><i class="fa fa-reddit-square fa-2x"></i></a></li>
+                <li><a href="#" target="_blank" title="Share on LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;url=' + encodeURIComponent(document.URL) + '&amp;title=' +  encodeURIComponent(document.title)); return false;"><i class="fa fa-linkedin-square fa-2x"></i></a></li>
+            </ul>
+            <hr>
         </div>
     </div>
 </div>
