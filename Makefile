@@ -2,6 +2,7 @@ runserver:
 	python3 manage.py runserver vps123446.vps.ovh.ca:8080
 
 clean:
+	find . -name __pycache__ -exec rm -r "{}" \;
 	find . -name "*.pyc" -delete
 	find . -name ".DS_Store" -delete
 
