@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "partials/head.html" %}
+</head>
+<body>
+
+{% include "partials/navbar.html" %}
+
+<div class="container search-form">
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Search</h2>
+            <hr>
+            <form method="get" action="/search" class="form-inline">
+                <div style="display:table;" class="form-group">
+                    <input type="search" name="q" id="q"
+                           placeholder="Search talks" autofocus="autofocus"
+                           autocomplete="off"
+                           class="form-control input-lg search-string">
+                    <span class="input-group-btn input-group-addon">
+                        <button type="submit" class="btn btn-defaultn"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container latest-talks">
+    <div class="row">
+        <div class="col-xs-12 talk-list">
+            <h2>Search results</h2>
+            <hr>
+            {% if query %}
+                {% for talk in page.object_list %}
+                    <div class="row talk">
+                        <div class="col-xs-2 thumb">
+                            <a href="/talk/play/{{ talk.object.slug }}">
+                                <img src="http://img.youtube.com/vi/{{ talk.object.code }}/mqdefault.jpg" title="{{ talk.object.title }}" class="img-responsive img-circle thumbnail">
+                            </a>
+                        </div>
+                        <div class="col-xs-9 content">
+                            <h3 class="title">
+                                <a href="/talk/{{ talk.object.slug }}">{{ talk.object.title }}</a>
+                            </h3>
+                            <p class="description">{{ talk.object.description }}</p>
+                            <div class="tags">
+                                {% for tag in talk.object.tags.all %}
+                                    <a href="/tag/{{ tag.slug }}" class="label label-default tag">{{ tag.name }}</a>
+                                {%  endfor %}
+                            </div>
+                        </div>
+                        <div class="col-xs-1">
+                            <div class="info">
+                                <div class="row votes">
+                                    <button type="button" data-toggle="modal" data-target=".voteAnon" class="btn btn-primary js-vote-anon">
+                                        <i class="glyphicon glyphicon-chevron-up"></i>
+                                        <div class="counter">{{ talk.object.vote_count }}</div>
+                                    </button>
+                                </div>
+                                <div class="row stats">
+                                    <div class="col-xs-6 comments">
+                                        <a href="/talk/{{ talk.object.slug }}"><i class="fa fa-comments"></i></a>
+                                    </div>
+                                    <div class="col-xs-6 favorites">
+                                        <div class="heart"><i class="fa fa-heart"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                {% empty %}
+                    <p>No results found.</p>
+                {% endfor %}
+
+                {% if page.has_previous or page.has_next %}
+                <div>
+                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                    |
+                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% include "partials/footer.html" %}
+{% include "partials/js.html" %}
+</body>
+</html>

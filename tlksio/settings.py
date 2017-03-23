@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'taggit',
+    'haystack',
     'talks',
 ]
 
@@ -124,3 +125,10 @@ STATIC_ROOT = '/home/raul/tlksio/'
 STATICFILES_DIRS = [
     '/home/raul/tlksio/static/',
 ]
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': '/home/raul/tlksio/tlksio/whoosh_index',
+    },
+}

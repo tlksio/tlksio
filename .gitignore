@@ -8,3 +8,6 @@
 __pycache__/
 *.py[cod]
 *$py.class
+
+db.sqlite3
+tlksio/whoosh_index/

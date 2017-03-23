@@ -47,3 +47,43 @@ div.talk h3 {
 footer {
   margin-bottom: 25px;
 }
+
+.talk-list .talk .info .votes {
+  margin-left: 0;
+}
+
+.talk-list .talk .info .votes button, .talk-view .votes button {
+  width: 100%;
+}
+
+.talk-list .talk .info .stats {
+  margin-top: 20px;
+  margin-left: -10px;
+  color: #ccc;
+}
+
+.talk-list .talk .info .stats .favorite i, .talk-list .talk .info .stats a {
+  color: #ccc;
+}
+
+.talk-list .talk .info .stats i {
+  font-size: 1.5em;
+}
+
+.talk-view .stats {
+  color: #999;
+}
+
+.talk-view .info i {
+  margin-right: 10px;
+}
+
+.talk-view .stats i {
+  font-size: 1.2em;
+  padding: 5px;
+}
+
+.talk-view .created {
+  font-style: italic;
+  color: #999;
+}
