@@ -11,7 +11,7 @@
         <p class="description">{{ talk.description }}</p>
         <div class="tags">
             {% for tag in talk.tags.all %}
-                <a href="/tag/{{ tag.slug }}" class="tag">{{ tag.name }}</a>
+                <a href="/tag/{{ tag.slug }}" class="label label-default tag">{{ tag.name }}</a>
             {%  endfor %}
         </div>
     </div>
