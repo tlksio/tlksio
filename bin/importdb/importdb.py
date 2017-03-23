@@ -8,7 +8,7 @@ from datetime import datetime
 from django.utils import timezone
 
 sys.path.append("/home/raul/tlksio")
-os.environ["DJANGO_SETTINGS_MODULE"] = "tlksio.settings"
+os.environ["DJANGO_SETTINGS_MODULE"] = "settings"
 django.setup()
 
 from pymongo import MongoClient

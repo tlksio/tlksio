@@ -10,4 +10,4 @@ __pycache__/
 *$py.class
 
 db.sqlite3
-tlksio/whoosh_index/
+whoosh_index/
