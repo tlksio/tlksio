@@ -2,7 +2,7 @@ from django.db import models
 
 from taggit.managers import TaggableManager
 
-from django.contrib.auth.models import User
+from tlksio.models import User
 
 
 class Talk(models.Model):
@@ -11,7 +11,7 @@ class Talk(models.Model):
         ('vimeo', 'Vimeo'),
     )
     code = models.CharField(max_length=25)
-    title = models.TextField(max_length=200)
+    title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     description = models.TextField()

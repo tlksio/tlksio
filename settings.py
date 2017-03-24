@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'taggit',
     'haystack',
+    'tlksio',
     'talks',
 ]
 
@@ -102,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -132,3 +132,6 @@ HAYSTACK_CONNECTIONS = {
         'PATH': os.path.join(BASE_DIR, 'tlksio/whoosh_index'),
     },
 }
+
+TWITTER_TOKEN = '2NcFgYMLgRKES8dV6Ym2PyhLt'
+TWITTER_SECRET = 'G25VNqFkLqI9M4KYbERL4SUY70yskQaVOMj5KVyRpsMIVCIlKH'

@@ -14,7 +14,7 @@ django.setup()
 from pymongo import MongoClient
 client = MongoClient('mongodb://import:import@ds043180.mlab.com:43180/techtalks')
 
-from django.contrib.auth.models import User
+from tlksio.models import User
 all_users = client.techtalks.users.find({})
 for user in all_users:
     try:
