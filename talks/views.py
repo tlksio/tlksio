@@ -8,6 +8,11 @@ from taggit.models import Tag
 
 
 def latest(request):
+    user = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+
     template = loader.get_template('latest.html')
 
     talks = Talk.objects.all()
@@ -21,12 +26,18 @@ def latest(request):
         items = paginator.page(paginator.num_pages)
 
     context = {
+        "user": user,
         "latest": items,
     }
     return HttpResponse(template.render(context, request))
 
 
 def popular(request):
+    user = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+
     template = loader.get_template('popular.html')
 
     talks = Talk.objects.order_by('-vote_count')
@@ -40,18 +51,25 @@ def popular(request):
         items = paginator.page(paginator.num_pages)
 
     context = {
+        "user": user,
         "popular": items,
     }
     return HttpResponse(template.render(context, request))
 
 
 def tag(request, tag_slug):
+    user = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+
     template = loader.get_template('tag.html')
 
     items = Talk.objects.filter(tags__name__in=[tag_slug])[:25]
     tag = Tag.objects.get(slug=tag_slug)
 
     context = {
+        "user": user,
         "tag": tag,
         "items": items,
     }
@@ -59,16 +77,29 @@ def tag(request, tag_slug):
 
 
 def talk(request, talk_slug):
+    user = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+
     template = loader.get_template('talk.html')
 
     item = Talk.objects.get(slug=talk_slug)
 
     context = {
+        "user": user,
         "talk": item,
     }
     return HttpResponse(template.render(context, request))
 
 def play(request, talk_slug):
+    user = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+
+    # TODO : Save when a registered user plays a talk
+
     item = Talk.objects.get(slug=talk_slug)
     item.view_count = item.view_count + 1
     item.save()

@@ -35,41 +35,82 @@ def index(request):
 
 
 def about(request):
+    user = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+
     template = loader.get_template('about.html')
-    context = {}
+    context = {
+        "user": user,
+    }
     return HttpResponse(template.render(context, request))
 
 
 def faq(request):
+    user = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+
     template = loader.get_template('faq.html')
-    context = {}
+    context = {
+        "user": user,
+    }
     return HttpResponse(template.render(context, request))
 
 
 def contactus(request):
+    user = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+
     template = loader.get_template('contactus.html')
-    context = {}
+    context = {
+        "user": user,
+    }
     return HttpResponse(template.render(context, request))
 
 
 def terms(request):
+    user = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+
     template = loader.get_template('terms.html')
-    context = {}
+    context = {
+        "user": user,
+    }
     return HttpResponse(template.render(context, request))
 
 
 def privacy(request):
+    user = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+
     template = loader.get_template('privacy.html')
-    context = {}
+    context = {
+        "user": user,
+    }
     return HttpResponse(template.render(context, request))
 
 
 def activity(request):
+    user = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+
     template = loader.get_template('activity.html')
 
     latest = Talk.objects.all()[:25]
 
     context = {
+        "user": user,
         "latest": latest,
     }
 
@@ -146,3 +187,4 @@ def logout(request):
     del request.session['screen_name']
     del request.session['twitter_id']
     return HttpResponseRedirect("/")
+
