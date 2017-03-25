@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.template import loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -66,3 +67,9 @@ def talk(request, talk_slug):
         "talk": item,
     }
     return HttpResponse(template.render(context, request))
+
+def play(request, talk_slug):
+    item = Talk.objects.get(slug=talk_slug)
+    item.view_count = item.view_count + 1
+    item.save()
+    return HttpResponseRedirect('https://www.youtube.com/watch?v='+item.code)

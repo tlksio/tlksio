@@ -14,15 +14,25 @@ django.setup()
 from pymongo import MongoClient
 client = MongoClient('mongodb://import:import@ds043180.mlab.com:43180/techtalks')
 
-from tlksio.models import User
+from talks.models import Profile
+Profile.objects.all().delete()
+from django.contrib.auth.models import User
 all_users = client.techtalks.users.find({})
 for user in all_users:
     try:
         obj = User.objects.get(username=user['username'])
-        u = User()
     except User.DoesNotExist:
         obj = User(username=user['username'])
         obj.save()
+
+    try:
+        pobj = Profile.objects.get(twitter_id=user['twitterId'])
+    except Profile.DoesNotExist:
+        pobj = Profile(user=obj)
+        pobj.twitter_id = user['twitterId']
+        pobj.bio = user['bio']
+        pobj.avatar = user['avatar']
+        pobj.save()
 
 from taggit.models import Tag
 Tag.objects.all().delete()

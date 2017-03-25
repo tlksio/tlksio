@@ -5,8 +5,10 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template import loader
 from django.conf import settings
+from django.contrib.auth.models import User
 
 from talks.models import Talk
+from talks.models import Profile
 
 # It's probably a good idea to put your consumer's OAuth token and
 # OAuth secret into your project's settings.
@@ -103,9 +105,27 @@ def auth_twitter_callback(request):
         raise Exception("Invalid response from Twitter.")
 
     data = dict(parse.parse_qsl(content))
-    request.session['oauth_token'] = data[b'oauth_token'].decode('UTF-8')
-    request.session['oauth_token_secret'] = data[b'oauth_token_secret'].decode('UTF-8')
-    request.session['user_id'] = data[b'user_id'].decode('UTF-8')
-    request.session['username'] = data[b'screen_name'].decode('UTF-8')
+    twitter_id = data[b'user_id'].decode('UTF-8')
+    screen_name = data[b'screen_name'].decode('UTF-8')
+
+    try:
+        obj = User.objects.get(username=screen_name)
+    except User.DoesNotExist:
+        obj = User(username=screen_name)
+        obj.save()
+
+    try:
+        pobj = Profile.objects.get(twitter_id=twitter_id)
+        pobj.oauth_token = data[b'oauth_token'].decode('UTF-8')
+        pobj.oauth_token_secret = data[b'oauth_token_secret'].decode('UTF-8')
+        pobj.save()
+    except Profile.DoesNotExist:
+        pobj = Profile(user=obj)
+        pobj.twitter_id = twitter_id
+        pobj.oauth_token = data[b'oauth_token'].decode('UTF-8')
+        pobj.oauth_token_secret = data[b'oauth_token_secret'].decode('UTF-8')
+        pobj.bio = user['bio']
+        pobj.avatar = user['avatar']
+        pobj.save()
 
     return HttpResponseRedirect("/")

@@ -2,8 +2,22 @@ from django.db import models
 
 from taggit.managers import TaggableManager
 
-from tlksio.models import User
+from django.contrib.auth.models import User
 
+class Profile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    oauth_token = models.CharField(max_length=100, blank=True)
+    oauth_token_secret = models.CharField(max_length=100, blank=True)
+    twitter_id = models.CharField(max_length=100, blank=True)
+    avatar = models.URLField(blank=True)
+    bio = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.twitter_id
+
+    class Meta:
+        verbose_name = "Profile"
+        verbose_name_plural = "Profiles"
 
 class Talk(models.Model):
     TYPE_CHOICES = (
