@@ -25,20 +25,28 @@ from talks import views as talk_views
 
 urlpatterns = [
     url(r'^$', main_views.index, name='index'),
+    url(r'^auth/login', main_views.login, name='login'),
+    url(r'^auth/twitter/callback', main_views.auth_twitter_callback, name='auth_twitter_callback'),
+    url(r'^auth/twitter', main_views.auth_twitter, name='auth_twitter'),
+    url(r'^auth/logout', main_views.logout, name='logout'),
     url(r'^about', main_views.about, name='about'),
     url(r'^faq', main_views.faq, name='faq'),
     url(r'^contactus', main_views.contactus, name='contactus'),
     url(r'^terms', main_views.terms, name='terms'),
     url(r'^privacy', main_views.privacy, name='privacy'),
+    url(r'^activity', main_views.activity, name='activity'),
 
     url(r'^latest', talk_views.latest, name='latest'),
     url(r'^popular', talk_views.popular, name='popular'),
 
     url(r'^tag/(?P<tag_slug>[\w-]+)', talk_views.tag, name='tag'),
 
+    url(r'^talk/play/(?P<talk_slug>[\w-]+)', talk_views.play, name='play'),
     url(r'^talk/(?P<talk_slug>[\w-]+)', talk_views.talk, name='talk'),
 
     url(r'^admin/', admin.site.urls),
 
     url(r'^search/', include('haystack.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

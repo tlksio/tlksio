@@ -57,7 +57,7 @@ ROOT_URLCONF = 'urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'tlksio/../templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'tlksio/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'tlksio/../db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'tlksio/db.sqlite3'),
     }
 }
 
@@ -101,7 +101,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
@@ -129,6 +128,9 @@ STATICFILES_DIRS = [
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': '/home/raul/tlksio/tlksio/whoosh_index',
+        'PATH': os.path.join(BASE_DIR, 'tlksio/whoosh_index'),
     },
 }
+
+TWITTER_TOKEN = '2NcFgYMLgRKES8dV6Ym2PyhLt'
+TWITTER_SECRET = 'G25VNqFkLqI9M4KYbERL4SUY70yskQaVOMj5KVyRpsMIVCIlKH'

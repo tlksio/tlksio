@@ -12,6 +12,7 @@ deps:
 	pip3 install django-haystack
 	pip3 install pymongo
 	pip3 install whoosh
+	pip3 install oauth2
 
 migrate:
 	python3 manage.py makemigrations
