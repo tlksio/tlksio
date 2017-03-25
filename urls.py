@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^auth/login', main_views.login, name='login'),
     url(r'^auth/twitter/callback', main_views.auth_twitter_callback, name='auth_twitter_callback'),
     url(r'^auth/twitter', main_views.auth_twitter, name='auth_twitter'),
+    url(r'^auth/logout', main_views.logout, name='logout'),
     url(r'^about', main_views.about, name='about'),
     url(r'^faq', main_views.faq, name='faq'),
     url(r'^contactus', main_views.contactus, name='contactus'),

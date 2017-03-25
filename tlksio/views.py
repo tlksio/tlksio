@@ -16,12 +16,18 @@ consumer = oauth.Consumer(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
 client = oauth.Client(consumer)
 
 def index(request):
+    user = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+
     template = loader.get_template('index.html')
 
     latest = Talk.objects.all()[:5]
     popular = Talk.objects.order_by('-vote_count')[:5]
 
     context = {
+        "user": user,
         "latest": latest,
         "popular": popular,
     }
@@ -128,4 +134,15 @@ def auth_twitter_callback(request):
         pobj.avatar = user['avatar']
         pobj.save()
 
+    request.session['screen_name'] = screen_name
+    request.session['twitter_id'] = twitter_id
+
+    return HttpResponseRedirect("/")
+
+
+def logout(request):
+    del request.session['oauth_token']
+    del request.session['oauth_token_secret']
+    del request.session['screen_name']
+    del request.session['twitter_id']
     return HttpResponseRedirect("/")
