@@ -32,7 +32,9 @@
                         </div>
                     </div>
                     <hr>
-                    <a href="/profile/{{talk.author}}">{{talk.author}}</a>
+                    <a href="/profile/{{talk.author}}">
+                        <img src="{{talk.author.profile_set.all.0.avatar}}" title="{{talk.author.username}}" class="responsive img-circle" style="width: 32px">
+                    </a>
                     <span class="created">{{ talk.created }}</span>
                 </div>
             </div>
@@ -62,6 +64,7 @@
             <script>
 
             /**
+            *  TODO
             *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
             *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
             /*
@@ -77,7 +80,7 @@
             (d.head || d.body).appendChild(s);
             })();
             </script>
-            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments.</a></noscript>
             <hr>
         </div>
     </div>

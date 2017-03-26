@@ -88,6 +88,8 @@ def talk(request, talk_slug):
 
     item = Talk.objects.get(slug=talk_slug)
 
+    print(item.author.profile_set.all()[0].avatar)
+
     context = {
         "user": user,
         "talk": item,
