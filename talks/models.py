@@ -36,6 +36,8 @@ class Talk(models.Model):
     vote_count = models.PositiveIntegerField('vote count')
     fav_count = models.PositiveIntegerField('favorite count')
     type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='youtube')
+    favorites = models.ManyToManyField(User, blank=True, related_name='favorites')
+    votes = models.ManyToManyField(User, blank=True, related_name='votes')
 
     def __str__(self):
         return self.title
@@ -46,20 +48,3 @@ class Talk(models.Model):
         get_latest_by = "-created"
         ordering = ['-created', '-updated']
 
-
-class Vote(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    talk = models.ForeignKey(Talk, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = "Vote"
-        verbose_name_plural = "Votes"
-
-
-class Favorite(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    talk = models.ForeignKey(Talk, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = "Favorite"
-        verbose_name_plural = "Favorites"
