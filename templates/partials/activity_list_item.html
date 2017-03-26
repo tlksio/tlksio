@@ -4,9 +4,11 @@
         <span>posted</span>
         <a href="/talk/{{ talk.slug }}">{{ talk.title }}</a>
         <br>
-        <span class="created">August 16th 2016, 3:36:19 am</span>
+        <span class="created">{{ talk.created }}</span>
     </div>
     <div class="col-xs-2">
-        <a href="/profile/josgilmo"><img src="" title="@{{ talk.author }}" style="width: 32px" class="responsive img-circle"></a>
+        <a href="/profile/{{ talk.author }}">
+            <img src="{{ talk.author.profile_set.all.0.avatar }}" title="@{{ talk.author }}" style="width: 32px" class="responsive img-circle">
+        </a>
     </div>
 </div>

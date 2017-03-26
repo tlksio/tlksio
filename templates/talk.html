@@ -32,7 +32,9 @@
                         </div>
                     </div>
                     <hr>
-                    <a href="/profile/{{talk.author}}">{{talk.author}}</a>
+                    <a href="/profile/{{talk.author}}">
+                        <img src="{{talk.author.profile_set.all.0.avatar}}" title="{{talk.author.username}}" class="responsive img-circle" style="width: 32px">
+                    </a>
                     <span class="created">{{ talk.created }}</span>
                 </div>
             </div>
@@ -57,6 +59,28 @@
                 <li><a href="#" target="_blank" title="Submit to Reddit" onclick="window.open('http://www.reddit.com/submit?url=' + encodeURIComponent(document.URL) + '&amp;title=' +  encodeURIComponent(document.title)); return false;"><i class="fa fa-reddit-square fa-2x"></i></a></li>
                 <li><a href="#" target="_blank" title="Share on LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;url=' + encodeURIComponent(document.URL) + '&amp;title=' +  encodeURIComponent(document.title)); return false;"><i class="fa fa-linkedin-square fa-2x"></i></a></li>
             </ul>
+            <hr>
+            <div id="disqus_thread"></div>
+            <script>
+
+            /**
+            *  TODO
+            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+            /*
+            var disqus_config = function () {
+            this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            };
+            */
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://tlksio.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments.</a></noscript>
             <hr>
         </div>
     </div>

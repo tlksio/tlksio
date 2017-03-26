@@ -2,9 +2,11 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template import loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.models import User
 
 from talks.models import Talk
 from taggit.models import Tag
+
 
 
 def latest(request):
@@ -85,6 +87,8 @@ def talk(request, talk_slug):
     template = loader.get_template('talk.html')
 
     item = Talk.objects.get(slug=talk_slug)
+
+    print(item.author.profile_set.all()[0].avatar)
 
     context = {
         "user": user,
