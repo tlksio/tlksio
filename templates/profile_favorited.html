@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "partials/head.html" %}
+</head>
+<body>
+
+{% include "partials/navbar.html" %}
+
+<div class="container profile">
+    <div class="row information">
+        <div class="col-xs-4">
+            <img src="{{profile.avatar}}" class="responsive img-circle">
+        </div>
+        <div class="col-xs-8">
+            <div class="title">{{user.username}}</div>
+            <div class="bio">{{profile.bio}}</div>
+            <hr>
+            <div class="meta">
+                <a href="https://twitter.com/{{user.username}}">@{{user.username}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="row lists-tab">
+        <div class="col-xs-12">
+            <ul class="nav nav-tabs">
+                <li role="posted"><a href="/profile/repejota">Posted</a></li>
+                <li role="upvoted"><a href="/profile/repejota/upvoted">Upvoted</a></li>
+                <li role="favorited" class="active"><a href="/profile/repejota/favorited">Favorited</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row lists-content">
+        <div class="col-xs-12 talk-list">
+            {% for talk in favorited%}
+                {% include "partials/talk_list_item.html" %}
+                <hr>
+            {% endfor %}
+            <hr>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if favorited.has_previous %}
+                        <a href="?page={{ favorited.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ favorited.number }} of {{ favorited.paginator.num_pages }}.
+                    </span>
+
+                    {% if favorited.has_next %}
+                        <a href="?page={{ favorited.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+            <hr>
+        </div>
+    </div>
+</div>
+
+{% include "partials/footer.html" %}
+{% include "partials/js.html" %}
+</body>
+</html>
