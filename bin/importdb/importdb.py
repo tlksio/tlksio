@@ -38,10 +38,12 @@ from taggit.models import Tag
 Tag.objects.all().delete()
 from talks.models import Talk
 Talk.objects.all().delete()
+"""
 from talks.models import Favorite
 Favorite.objects.all().delete()
 from talks.models import Vote
 Vote.objects.all().delete()
+"""
 all_talks = client.techtalks.talks.find({})
 for talk in all_talks:
     t = Talk()
@@ -67,26 +69,21 @@ for talk in all_talks:
             obj = Tag(name=tag, slug=tag)
             obj.save()
         t.tags.add(tag)
-    t.save()
 
     for favorite in talk['favorites']:
         u = client.techtalks.users.find_one({"id": favorite})
         if not u:
             break
         uu = User.objects.get(username=u['username'])
-        f = Favorite()
-        f.user = uu
-        f.talk = t
-        f.save()
+        t.favorites.add(uu)
 
     for vote in talk['votes']:
         u = client.techtalks.users.find_one({"id": vote})
         if not u:
             break
         uu = User.objects.get(username=u['username'])
-        v = Vote()
-        v.user = uu
-        v.talk = t
-        v.save()
+        t.votes.add(uu)
+
+    t.save()
 
     print('.', end='', flush=True)

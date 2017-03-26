@@ -18,7 +18,11 @@
     <div class="col-xs-1">
         <div class="info">
             <div class="row votes">
-                <a href="#votemodal" rel="modal:open" data-toggle="modal" data-target=".voteAnon" class="btn btn-primary js-vote-anon">
+                <a href="#votemodal" rel="modal:open" data-toggle="modal" data-target=".voteAnon" class="btn btn-primary js-vote-anon"
+                {% load talk_extras %}
+                {% if talk|has_voted:user.id %}
+                    disabled="true"
+                {% endif %}>
                     <i class="glyphicon glyphicon-chevron-up"></i>
                     <div class="counter">{{ talk.vote_count }}</div>
                 </a>
@@ -28,7 +32,11 @@
                     <a href="/talk/{{ talk.slug }}"><i class="fa fa-comments"></i></a>
                 </div>
                 <div class="col-xs-6 favorites">
+                    {% if talk|has_favorited:user.id %}
+                    <a href="#votemodal" rel="modal:open"><div class="heart red"><i class="fa fa-heart"></i></div></a>
+                    {% else %}
                     <a href="#votemodal" rel="modal:open"><div class="heart"><i class="fa fa-heart"></i></div></a>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -1,8 +1,10 @@
 from django.contrib import admin
 
 from .models import Talk
+"""
 from .models import Vote
 from .models import Favorite
+"""
 from .models import Profile
 
 
@@ -19,7 +21,7 @@ class TalkAdmin(admin.ModelAdmin):
 
 admin.site.register(Talk, TalkAdmin)
 
-
+"""
 class VoteAdmin(admin.ModelAdmin):
     list_display = ('user', 'talk')
 
@@ -30,3 +32,4 @@ class FavoriteAdmin(admin.ModelAdmin):
     list_display = ('user', 'talk')
 
 admin.site.register(Favorite, FavoriteAdmin)
+"""
