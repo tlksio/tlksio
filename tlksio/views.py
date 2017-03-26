@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django.template import loader
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from talks.models import Talk
 from talks.models import Profile
@@ -187,4 +188,96 @@ def logout(request):
     del request.session['screen_name']
     del request.session['twitter_id']
     return HttpResponseRedirect("/")
+
+
+def settings(request):
+    profile = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+        profile = Profile.objects.get(user=user)
+
+
+    template = loader.get_template('settings.html')
+
+    context = {
+        "user": profile.user,
+        "profile": profile,
+    }
+
+    return HttpResponse(template.render(context, request))
+
+def profile(request, username):
+    user = User.objects.get(username=username)
+    profile = Profile.objects.get(user=user)
+
+    talks = Talk.objects.filter(author=user)
+    paginator = Paginator(talks, 25)
+    page = request.GET.get('page')
+    try:
+        items = paginator.page(page)
+    except PageNotAnInteger:
+        items = paginator.page(1)
+    except EmptyPage:
+        items = paginator.page(paginator.num_pages)
+
+    template = loader.get_template('profile.html')
+
+    context = {
+        "user": profile.user,
+        "profile": profile,
+        "posted": items,
+    }
+
+    return HttpResponse(template.render(context, request))
+
+
+def profile_upvoted(request, username):
+    user = User.objects.get(username=username)
+    profile = Profile.objects.get(user=user)
+
+    talks = Talk.objects.filter(vote__user=user)
+    paginator = Paginator(talks, 25)
+    page = request.GET.get('page')
+    try:
+        items = paginator.page(page)
+    except PageNotAnInteger:
+        items = paginator.page(1)
+    except EmptyPage:
+        items = paginator.page(paginator.num_pages)
+
+    template = loader.get_template('profile_upvoted.html')
+
+    context = {
+        "user": profile.user,
+        "profile": profile,
+        "upvoted": items,
+    }
+
+    return HttpResponse(template.render(context, request))
+
+
+def profile_favorited(request, username):
+    user = User.objects.get(username=username)
+    profile = Profile.objects.get(user=user)
+
+    talks = Talk.objects.filter(favorite__user=user)
+    paginator = Paginator(talks, 25)
+    page = request.GET.get('page')
+    try:
+        items = paginator.page(page)
+    except PageNotAnInteger:
+        items = paginator.page(1)
+    except EmptyPage:
+        items = paginator.page(paginator.num_pages)
+
+    template = loader.get_template('profile_favorited.html')
+
+    context = {
+        "user": profile.user,
+        "profile": profile,
+        "favorited": items,
+    }
+
+    return HttpResponse(template.render(context, request))
 

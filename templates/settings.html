@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "partials/head.html" %}
+</head>
+<body>
+
+{% include "partials/navbar.html" %}
+
+<div class="container">
+    <h1>Settings</h1>
+    <hr>
+    <div class="row">
+        <div class="col-xs-3 text-center">
+            <img src="{{profile.avatar}}" class="responsive img-circle">
+        </div>
+        <div class="col-xs-9">
+            <form method="post" action="/settings" class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-xs-2">
+                        <label for="username">Username</label>
+                    </div>
+                    <div class="col-xs-10">
+                        <p class="form-control-static">@{{user.username}}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="col-xs-10">
+                        <input type="text" name="email" id="email" placeholder="email@example.com" value="{{user.email}}" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2">
+                        <label for="url">URL</label>
+                    </div>
+                    <div class="col-xs-10">
+                        <input type="text" name="url" id="url" placeholder="https://url.com" value="{{user.url}}" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2">
+                        <label for="bio">Biography</label>
+                    </div>
+                    <div class="col-xs-10">
+                        <textarea name="bio" id="bio" class="form-control">{{profile.bio}}</textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 text-left">
+                        <a href="/" class="btn btn-danger">Cancel</a>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <input type="submit" value="Save profile" class="btn btn-primary">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include "partials/footer.html" %}
+{% include "partials/js.html" %}
+</body>
+</html>
