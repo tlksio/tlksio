@@ -20,17 +20,17 @@
             <div class="row votes">
                 {% load talk_extras %}
                 {% if not user %}
-                    <a href="#votemodal" rel="modal:open" data-toggle="modal" data-target=".voteAnon" class="btn btn-primary js-vote-anon">
+                    <a href="#votemodal" rel="modal:open" class="btn btn-primary">
                         <i class="glyphicon glyphicon-chevron-up"></i>
                         <div class="counter">{{ talk.vote_count }}</div>
                     </a>
                 {% else %}
-                    <a href="#" rel="modal:open" data-toggle="modal" data-target=".voteAnon" class="btn btn-primary js-vote-anon"
-                    {% if talk|has_voted:user.id %}
-                        disabled="true"
-                    {% endif %}>
-                    <i class="glyphicon glyphicon-chevron-up"></i>
-                    <div class="counter">{{ talk.vote_count }}</div>
+                    <a href="javascript:false;" class="btn btn-primary"
+                        {% if talk|has_voted:user.id %}
+                            disabled="true"
+                        {% endif %}>
+                        <i class="glyphicon glyphicon-chevron-up"></i>
+                        <div class="counter">{{ talk.vote_count }}</div>
                     </a>
                 {% endif %}
             </div>
@@ -42,11 +42,9 @@
                     {% if not user %}
                         <a href="#votemodal" rel="modal:open"><div class="heart"><i class="fa fa-heart"></i></div></a>
                     {% else %}
-                        {% if talk|has_favorited:user.id %}
-                        <a href="#"><div class="heart red"><i class="fa fa-heart"></i></div></a>
-                        {% else %}
-                        <a href="#"><div class="heart"><i class="fa fa-heart"></i></div></a>
-                        {% endif %}
+                        <a href="javascript:false;" data-id="{{talk.id}}" class="favorite">
+                            <i class="fa fa-heart {% if talk|has_favorited:user.id %}red{% endif %}"></i>
+                        </a>
                     {% endif %}
                 </div>
             </div>

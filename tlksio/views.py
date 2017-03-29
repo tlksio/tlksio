@@ -172,8 +172,9 @@ def auth_twitter_callback(request):
         pobj.twitter_id = twitter_id
         pobj.oauth_token = data[b'oauth_token'].decode('UTF-8')
         pobj.oauth_token_secret = data[b'oauth_token_secret'].decode('UTF-8')
-        pobj.bio = user['bio']
-        pobj.avatar = user['avatar']
+        #pobj.bio = obj.bio
+        #pobj.avatar = obj.avatar
+        print(data)
         pobj.save()
 
     request.session['screen_name'] = screen_name
