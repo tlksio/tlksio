@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 from django.template import loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -88,8 +89,6 @@ def talk(request, talk_slug):
 
     item = Talk.objects.get(slug=talk_slug)
 
-    print(item.author.profile_set.all()[0].avatar)
-
     context = {
         "user": user,
         "talk": item,
@@ -108,3 +107,32 @@ def play(request, talk_slug):
     item.view_count = item.view_count + 1
     item.save()
     return HttpResponseRedirect('https://www.youtube.com/watch?v='+item.code)
+
+def favorite(request, talk_id):
+    user = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+
+    item = Talk.objects.get(id=talk_id)
+    if item.favorites.filter(id=user.id).count() > 0:
+        item.favorites.remove(user)
+        item.save()
+        return JsonResponse({"favorite": False})
+    else:
+        item.favorites.add(user)
+        item.save()
+        return JsonResponse({"favorite": True})
+
+
+def upvote(request, talk_id):
+    user = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+
+    item = Talk.objects.get(id=talk_id)
+    if item.votes.filter(id=user.id).count() == 0:
+        item.votes.add(user)
+        item.save()
+    return JsonResponse({"votes": item.votes.count()})

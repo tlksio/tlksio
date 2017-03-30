@@ -46,6 +46,8 @@ urlpatterns = [
     url(r'^tag/(?P<tag_slug>[\w-]+)', talk_views.tag, name='tag'),
 
     url(r'^talk/play/(?P<talk_slug>[\w-]+)', talk_views.play, name='play'),
+    url(r'^talk/favorite/(?P<talk_id>[\w-]+)', talk_views.favorite, name='favorite'),
+    url(r'^talk/upvote/(?P<talk_id>[\w-]+)', talk_views.upvote, name='upvote'),
     url(r'^talk/(?P<talk_slug>[\w-]+)', talk_views.talk, name='talk'),
 
     url(r'^admin/', admin.site.urls),
