@@ -124,3 +124,15 @@ def favorite(request, talk_id):
         item.save()
         return JsonResponse({"favorite": True})
 
+
+def upvote(request, talk_id):
+    user = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+
+    item = Talk.objects.get(id=talk_id)
+    if item.votes.filter(id=user.id).count() == 0:
+        item.votes.add(user)
+        item.save()
+    return JsonResponse({"votes": item.votes.count()})

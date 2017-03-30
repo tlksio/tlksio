@@ -25,13 +25,13 @@
                         <div class="counter">{{ talk.vote_count }}</div>
                     </a>
                 {% else %}
-                    <a href="javascript:false;" class="btn btn-primary"
+                    <button data-id="{{talk.id}}" class="btn btn-primary upvote"
                         {% if talk|has_voted:user.id %}
                             disabled="true"
                         {% endif %}>
                         <i class="glyphicon glyphicon-chevron-up"></i>
-                        <div class="counter">{{ talk.vote_count }}</div>
-                    </a>
+                        <div class="counter">{{ talk.votes.count }}</div>
+                    </button>
                 {% endif %}
             </div>
             <div class="row stats">
