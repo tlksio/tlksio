@@ -237,7 +237,7 @@ def profile_upvoted(request, username):
     user = User.objects.get(username=username)
     profile = Profile.objects.get(user=user)
 
-    talks = Talk.objects.filter(vote__user=user)
+    talks = Talk.objects.filter(votes__in=[user])
     paginator = Paginator(talks, 25)
     page = request.GET.get('page')
     try:
@@ -262,7 +262,7 @@ def profile_favorited(request, username):
     user = User.objects.get(username=username)
     profile = Profile.objects.get(user=user)
 
-    talks = Talk.objects.filter(favorite__user=user)
+    talks = Talk.objects.filter(favorites__in=[user])
     paginator = Paginator(talks, 25)
     page = request.GET.get('page')
     try:
