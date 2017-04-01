@@ -24,9 +24,9 @@
     <div class="row lists-tab">
         <div class="col-xs-12">
             <ul class="nav nav-tabs">
-                <li role="posted" class="active"><a href="/profile/repejota">Posted</a></li>
-                <li role="upvoted"><a href="/profile/repejota/upvoted">Upvoted</a></li>
-                <li role="favorited"><a href="/profile/repejota/favorited">Favorited</a></li>
+                <li role="posted" class="active"><a href="{% url 'profile' user.username %}">Posted</a></li>
+                <li role="upvoted"><a href="{% url 'profile_upvoted' user.username %}">Upvoted</a></li>
+                <li role="favorited"><a href="{% url 'profile_favorited' user.username %}">Favorited</a></li>
             </ul>
         </div>
     </div>

@@ -15,7 +15,7 @@
             <img src="{{profile.avatar}}" class="responsive img-circle">
         </div>
         <div class="col-xs-9">
-            <form method="post" action="/settings" class="form-horizontal">
+            <form method="post" action="{% url 'settings' %}" class="form-horizontal">
                 {% csrf_token %}
                 <div class="form-group">
                     <div class="col-xs-2">
@@ -51,7 +51,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-6 text-left">
-                        <a href="/" class="btn btn-danger">Cancel</a>
+                        <a href="{% url 'index' %}" class="btn btn-danger">Cancel</a>
                     </div>
                     <div class="col-xs-6 text-right">
                         <input type="submit" value="Save profile" class="btn btn-primary">
