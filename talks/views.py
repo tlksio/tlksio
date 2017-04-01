@@ -74,7 +74,7 @@ def tag(request, tag_slug):
 
     template = loader.get_template('tag.html')
 
-    items = Talk.objects.filter(tags__name__in=[tag_slug])[:25]
+    items = Talk.objects.filter(tags__slug__in=[tag_slug])[:25]
     tag = Tag.objects.get(slug=tag_slug)
 
     context = {
