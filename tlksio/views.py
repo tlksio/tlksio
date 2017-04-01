@@ -198,9 +198,14 @@ def settings(request):
         user = User.objects.get(username=screen_name)
         profile = Profile.objects.get(user=user)
 
+    if request.method == 'POST':
+        user.email = request.POST['email']
+        user.save()
+        profile.bio = request.POST['bio']
+        profile.save()
+        return HttpResponseRedirect("/settings")
 
     template = loader.get_template('settings.html')
-
     context = {
         "user": profile.user,
         "profile": profile,
