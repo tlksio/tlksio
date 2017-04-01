@@ -95,6 +95,22 @@ def talk(request, talk_slug):
     }
     return HttpResponse(template.render(context, request))
 
+
+def add(request):
+    user = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+
+    template = loader.get_template('add.html')
+
+    context = {
+        "user": user,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+
 def play(request, talk_slug):
     user = None
     if 'screen_name' in request.session:
