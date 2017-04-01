@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "partials/head.html" %}
+</head>
+<body>
+
+{% include "partials/navbar.html" %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 add-form">
+            <h1>Add new talk</h1>
+            <hr>
+            <form method="post" action="/talk/add">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="code">Video URL</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-video-camera"></i>
+                        </div>
+                        <input type="text" name="code" id="code" placeholder="Video URL from the services listed below..." class="form-control">
+                    </div>
+                    <blockquote class="col-xs-12">
+                        <p>
+                            <i class="fa fa-youtube"></i>
+                            <span>&nbsp; Youtube</span>
+                            <em class="small">https://www.youtube.com/watch?v=XXXXX</em>
+                        </p>
+                        <p>
+                            <i class="fa fa-vimeo-square"></i>
+                            <span>&nbsp; Vimeo</span>
+                            <em class="small">https://vimeo.com/XXXXX</em>
+                        </p>
+                    </blockquote>
+                </div>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" id="title" placeholder="Title" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea rows="3" name="description" id="description" placeholder="Description" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+                    <input type="text" name="tags" id="tags" placeholder="tag1, tag2, ..." class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include "partials/footer.html" %}
+{% include "partials/js.html" %}
+</body>
+</html>

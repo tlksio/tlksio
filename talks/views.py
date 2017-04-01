@@ -1,9 +1,15 @@
+from urllib.parse import urlparse
+from urllib.parse import parse_qs
+from datetime import datetime
+
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 from django.template import loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
+from django.utils.text import slugify
+
 
 from talks.models import Talk
 from taggit.models import Tag
@@ -94,6 +100,40 @@ def talk(request, talk_slug):
         "talk": item,
     }
     return HttpResponse(template.render(context, request))
+
+
+def add(request):
+    user = None
+    if 'screen_name' in request.session:
+        screen_name = request.session['screen_name']
+        user = User.objects.get(username=screen_name)
+
+    if request.method == 'POST':
+        talk = Talk()
+        talk.author = user
+        talk.title = request.POST['title']
+        talk.description = request.POST['description']
+        talk.type = 'youtube'
+        u = urlparse(request.POST['code'])
+        q = parse_qs(u.query)
+        talk.code = q['v'][0]
+        talk.slug = slugify(talk.title)
+        talk.created = datetime.now()
+        talk.updated = datetime.now()
+        talk.view_count = 0
+        talk.vote_count = 0
+        talk.fav_count = 0
+        talk.save()
+        return HttpResponseRedirect('/talk/'+talk.slug)
+
+    template = loader.get_template('add.html')
+
+    context = {
+        "user": user,
+    }
+    return HttpResponse(template.render(context, request))
+
+
 
 def play(request, talk_slug):
     user = None
