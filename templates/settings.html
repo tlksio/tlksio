@@ -16,6 +16,7 @@
         </div>
         <div class="col-xs-9">
             <form method="post" action="/settings" class="form-horizontal">
+                {% csrf_token %}
                 <div class="form-group">
                     <div class="col-xs-2">
                         <label for="username">Username</label>
