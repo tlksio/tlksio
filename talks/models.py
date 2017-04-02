@@ -33,7 +33,6 @@ class Talk(models.Model):
     created = models.DateTimeField('date created')
     updated = models.DateTimeField('date updated')
     view_count = models.PositiveIntegerField('view count', default=0)
-    vote_count = models.PositiveIntegerField('vote count', default=0)
     fav_count = models.PositiveIntegerField('favorite count', default=0)
     type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='youtube')
     favorites = models.ManyToManyField(User, blank=True, related_name='favorites')

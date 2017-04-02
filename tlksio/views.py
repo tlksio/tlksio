@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.http import require_http_methods
+from django.db.models import Count
 
 from talks.models import Talk
 from talks.models import Profile
@@ -27,7 +28,7 @@ def index(request):
     template = loader.get_template('index.html')
 
     latest = Talk.objects.all()[:5]
-    popular = Talk.objects.order_by('-vote_count')[:5]
+    popular = Talk.objects.annotate(vote_count=Count('votes')).order_by('-vote_count')[:5]
 
     context = {
         "user": user,
