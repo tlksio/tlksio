@@ -39,7 +39,7 @@
             <div class="pagination">
                 <span class="step-links">
                     {% if upvoted.has_previous %}
-                        <a href="?page={{ upvoted.previous_page_number }}">previous</a>
+                    <a href="{% url 'profile_upvoted_page' user.username upvoted.previous_page_number %}">previous</a>
                     {% endif %}
 
                     <span class="current">
@@ -47,7 +47,7 @@
                     </span>
 
                     {% if upvoted.has_next %}
-                        <a href="?page={{ upvoted.next_page_number }}">next</a>
+                        <a href="{% url 'profile_upvoted_page' user.username upvoted.next_page_number %}">next</a>
                     {% endif %}
                 </span>
             </div>

@@ -20,7 +20,7 @@
             <div class="pagination">
                 <span class="step-links">
                     {% if popular.has_previous %}
-                        <a href="?page={{ popular.previous_page_number }}">previous</a>
+                    <a href="{% url 'popular_page' popular.previous_page_number %}">previous</a>
                     {% endif %}
 
                     <span class="current">
@@ -28,7 +28,7 @@
                     </span>
 
                     {% if popular.has_next %}
-                        <a href="?page={{ popular.next_page_number }}">next</a>
+                    <a href="{% url 'popular_page' popular.next_page_number %}">next</a>
                     {% endif %}
                 </span>
             </div>

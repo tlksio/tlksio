@@ -39,7 +39,7 @@
             <div class="pagination">
                 <span class="step-links">
                     {% if favorited.has_previous %}
-                        <a href="?page={{ favorited.previous_page_number }}">previous</a>
+                        <a href="{% url 'profile_favorited_page' user.username favorited.previous_page_number %}">previous</a>
                     {% endif %}
 
                     <span class="current">
@@ -47,7 +47,7 @@
                     </span>
 
                     {% if favorited.has_next %}
-                        <a href="?page={{ favorited.next_page_number }}">next</a>
+                        <a href="{% url 'profile_favorited_page' user.username favorited.next_page_number %}">next</a>
                     {% endif %}
                 </span>
             </div>
