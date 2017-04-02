@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.template import loader
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator, EmptyPage
 from django.views.decorators.http import require_http_methods
 from django.db.models import Count
 
@@ -17,6 +17,7 @@ from talks.models import Profile
 # OAuth secret into your project's settings.
 consumer = oauth.Consumer(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
 client = oauth.Client(consumer)
+
 
 @require_http_methods(["GET"])
 def index(request):
@@ -159,10 +160,10 @@ def auth_twitter_callback(request):
     # Step 1. Use the request token in the session to build a new client.
     token = oauth.Token(request.session['oauth_token'], request.session['oauth_token_secret'])
     token.set_verifier(request.GET['oauth_verifier'])
-    client = oauth.Client(consumer, token)
+    c = oauth.Client(consumer, token)
 
     # Step 2. Request the authorized access token from Twitter.
-    resp, content = client.request(access_token_url, "GET")
+    resp, content = c.request(access_token_url, "GET")
     if resp['status'] != '200':
         print(content)
         raise Exception("Invalid response from Twitter.")
@@ -187,9 +188,9 @@ def auth_twitter_callback(request):
         pobj.twitter_id = twitter_id
         pobj.oauth_token = data[b'oauth_token'].decode('UTF-8')
         pobj.oauth_token_secret = data[b'oauth_token_secret'].decode('UTF-8')
-        # TODO Save bio, avatar, url and email
-        #pobj.bio = obj.bio
-        #pobj.avatar = obj.avatar
+        #  TODO Save bio, avatar, url and email
+        # pobj.bio = obj.bio
+        # pobj.avatar = obj.avatar
         pobj.save()
 
     request.session['screen_name'] = screen_name
@@ -209,16 +210,17 @@ def logout(request):
 
 @require_http_methods(["GET", "POST"])
 def settings(request):
-    profile = None
+    user = None
+    p = None
     if 'screen_name' in request.session:
         screen_name = request.session['screen_name']
         user = User.objects.get(username=screen_name)
-        profile = Profile.objects.get(user=user)
+        p = Profile.objects.get(user=user)
 
     if request.method == 'POST':
         user.email = request.POST['email']
         user.save()
-        profile.bio = request.POST['bio']
+        p.bio = request.POST['bio']
         profile.save()
         return HttpResponseRedirect("/settings")
 
@@ -234,7 +236,7 @@ def settings(request):
 @require_http_methods(["GET"])
 def profile(request, username, page=1):
     user = User.objects.get(username=username)
-    profile = Profile.objects.get(user=user)
+    p = Profile.objects.get(user=user)
 
     talks = Talk.objects.filter(author=user)
     paginator = Paginator(talks, 25)
@@ -246,8 +248,8 @@ def profile(request, username, page=1):
     template = loader.get_template('profile.html')
 
     context = {
-        "user": profile.user,
-        "profile": profile,
+        "user": p.user,
+        "profile": p,
         "posted": items,
     }
 
@@ -257,7 +259,7 @@ def profile(request, username, page=1):
 @require_http_methods(["GET"])
 def profile_upvoted(request, username, page=1):
     user = User.objects.get(username=username)
-    profile = Profile.objects.get(user=user)
+    p = Profile.objects.get(user=user)
 
     talks = Talk.objects.filter(votes__in=[user])
     paginator = Paginator(talks, 25)
@@ -269,8 +271,8 @@ def profile_upvoted(request, username, page=1):
     template = loader.get_template('profile_upvoted.html')
 
     context = {
-        "user": profile.user,
-        "profile": profile,
+        "user": p.user,
+        "profile": p,
         "upvoted": items,
     }
 
@@ -280,7 +282,7 @@ def profile_upvoted(request, username, page=1):
 @require_http_methods(["GET"])
 def profile_favorited(request, username, page=1):
     user = User.objects.get(username=username)
-    profile = Profile.objects.get(user=user)
+    p = Profile.objects.get(user=user)
 
     talks = Talk.objects.filter(favorites__in=[user])
     paginator = Paginator(talks, 25)
@@ -292,10 +294,9 @@ def profile_favorited(request, username, page=1):
     template = loader.get_template('profile_favorited.html')
 
     context = {
-        "user": profile.user,
-        "profile": profile,
+        "user": p.user,
+        "profile": p,
         "favorited": items,
     }
 
     return HttpResponse(template.render(context, request))
-

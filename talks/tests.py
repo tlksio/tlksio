@@ -15,4 +15,3 @@ class TalkTests(TestCase):
         talk.save()
 
         self.assertIs(Talk.objects.all().count(), 1)
-

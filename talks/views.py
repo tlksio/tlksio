@@ -6,12 +6,11 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 from django.template import loader
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator, EmptyPage
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.views.decorators.http import require_http_methods
 from django.db.models import Count
-
 
 from talks.models import Talk
 from taggit.models import Tag
@@ -73,11 +72,11 @@ def tag(request, tag_slug):
     template = loader.get_template('tag.html')
 
     items = Talk.objects.filter(tags__slug__in=[tag_slug])[:25]
-    tag = Tag.objects.get(slug=tag_slug)
+    tag_item = Tag.objects.get(slug=tag_slug)
 
     context = {
         "user": user,
-        "tag": tag,
+        "tag": tag_item,
         "items": items,
     }
     return HttpResponse(template.render(context, request))
@@ -101,7 +100,7 @@ def talk(request, talk_slug):
     return HttpResponse(template.render(context, request))
 
 
-@require_http_methods(["GET","POST"])
+@require_http_methods(["GET", "POST"])
 def add(request):
     user = None
     if 'screen_name' in request.session:
@@ -109,20 +108,20 @@ def add(request):
         user = User.objects.get(username=screen_name)
 
     if request.method == 'POST':
-        talk = Talk()
-        talk.author = user
-        talk.title = request.POST['title']
-        talk.description = request.POST['description']
-        talk.type = 'youtube'
+        t = Talk()
+        t.author = user
+        t.title = request.POST['title']
+        t.description = request.POST['description']
+        t.type = 'youtube'
         u = urlparse(request.POST['code'])
         q = parse_qs(u.query)
-        talk.code = q['v'][0]
-        talk.slug = slugify(talk.title)
-        talk.created = datetime.now()
-        talk.updated = datetime.now()
-        talk.view_count = 0
-        talk.save()
-        return HttpResponseRedirect('/talk/'+talk.slug)
+        t.code = q['v'][0]
+        t.slug = slugify(talk.title)
+        t.created = datetime.now()
+        t.updated = datetime.now()
+        t.view_count = 0
+        t.save()
+        return HttpResponseRedirect('/talk/' + t.slug)
 
     template = loader.get_template('add.html')
 
@@ -134,17 +133,19 @@ def add(request):
 
 @require_http_methods(["GET"])
 def play(request, talk_slug):
+    """
     user = None
     if 'screen_name' in request.session:
         screen_name = request.session['screen_name']
         user = User.objects.get(username=screen_name)
+    """
 
-    # TODO : Save when a registered user plays a talk
+    # TODO : Save when a registered user plays a talk
 
     item = Talk.objects.get(slug=talk_slug)
-    item.view_count = item.view_count + 1
+    item.view_count += 1
     item.save()
-    return HttpResponseRedirect('https://www.youtube.com/watch?v='+item.code)
+    return HttpResponseRedirect('https://www.youtube.com/watch?v=' + item.code)
 
 
 @require_http_methods(["GET"])
@@ -177,4 +178,3 @@ def upvote(request, talk_id):
         item.votes.add(user)
         item.save()
     return JsonResponse({"votes": item.votes.count()})
-

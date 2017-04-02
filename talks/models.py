@@ -4,6 +4,7 @@ from taggit.managers import TaggableManager
 
 from django.contrib.auth.models import User
 
+
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     oauth_token = models.CharField(max_length=100, blank=True)
@@ -18,6 +19,7 @@ class Profile(models.Model):
     class Meta:
         verbose_name = "Profile"
         verbose_name_plural = "Profiles"
+
 
 class Talk(models.Model):
     TYPE_CHOICES = (
@@ -45,4 +47,3 @@ class Talk(models.Model):
         verbose_name_plural = "Talks"
         get_latest_by = "-created"
         ordering = ['-created', '-updated']
-

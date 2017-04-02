@@ -3,6 +3,7 @@ from haystack import indexes
 
 from talks.models import Talk
 
+
 class TalkIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(model_attr='title', document=True)
     created = indexes.DateTimeField(model_attr='created')
