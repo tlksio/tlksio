@@ -255,17 +255,14 @@ def profile(request, username, page=1):
 
 
 @require_http_methods(["GET"])
-def profile_upvoted(request, username):
+def profile_upvoted(request, username, page=1):
     user = User.objects.get(username=username)
     profile = Profile.objects.get(user=user)
 
     talks = Talk.objects.filter(votes__in=[user])
     paginator = Paginator(talks, 25)
-    page = request.GET.get('page')
     try:
         items = paginator.page(page)
-    except PageNotAnInteger:
-        items = paginator.page(1)
     except EmptyPage:
         items = paginator.page(paginator.num_pages)
 
