@@ -127,7 +127,6 @@ def add(request):
         talk.created = datetime.now()
         talk.updated = datetime.now()
         talk.view_count = 0
-        talk.fav_count = 0
         talk.save()
         return HttpResponseRedirect('/talk/'+talk.slug)
 

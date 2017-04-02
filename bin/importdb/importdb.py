@@ -50,7 +50,6 @@ for talk in all_talks:
     t.description = talk['description']
     t.type = talk['type']
     t.view_count = talk['viewCount']
-    t.fav_count = talk['favoriteCount']
     t.author = User.objects.get(username=talk['author']['username'])
     dt = datetime.utcfromtimestamp(talk['created']/1000.0)
     dt_aware = timezone.make_aware(dt, timezone.get_current_timezone())
