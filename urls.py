@@ -31,8 +31,11 @@ urlpatterns = [
     url(r'^auth/logout', main_views.logout, name='logout'),
     url(r'^settings', main_views.settings, name='settings'),
     url(r'^profile/(?P<username>[\w-]+)$', main_views.profile, name='profile'),
+    url(r'^profile/(?P<username>[\w-]+)/page/(?P<page>[0-9]+)$', main_views.profile, name='profile_page'),
     url(r'^profile/(?P<username>[\w-]+)/upvoted$', main_views.profile_upvoted, name='profile_upvoted'),
+    url(r'^profile/(?P<username>[\w-]+)/upvoted/page/(?P<page>[0-9]+)$', main_views.profile_upvoted, name='profile_upvoted_page'),
     url(r'^profile/(?P<username>[\w-]+)/favorited$', main_views.profile_favorited, name='profile_favorited'),
+    url(r'^profile/(?P<username>[\w-]+)/favorited/page/(?P<page>[0-9]+)$', main_views.profile_favorited, name='profile_favorited_page'),
     url(r'^about', main_views.about, name='about'),
     url(r'^faq', main_views.faq, name='faq'),
     url(r'^contactus', main_views.contactus, name='contactus'),
@@ -40,8 +43,10 @@ urlpatterns = [
     url(r'^privacy', main_views.privacy, name='privacy'),
     url(r'^activity', main_views.activity, name='activity'),
 
-    url(r'^latest', talk_views.latest, name='latest'),
-    url(r'^popular', talk_views.popular, name='popular'),
+    url(r'^latest$', talk_views.latest, name='latest'),
+    url(r'^latest/page/(?P<page>[0-9]+)$', talk_views.latest, name='latest_page'),
+    url(r'^popular$', talk_views.popular, name='popular'),
+    url(r'^popular/page/(?P<page>[0-9]+)$', talk_views.popular, name='popular_page'),
 
     url(r'^tag/(?P<tag_slug>[\w-]+)', talk_views.tag, name='tag'),
 
