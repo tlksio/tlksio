@@ -116,11 +116,25 @@ def add(request):
         u = urlparse(request.POST['code'])
         q = parse_qs(u.query)
         t.code = q['v'][0]
-        t.slug = slugify(talk.title)
+        t.slug = slugify(t.title)
         t.created = datetime.now()
         t.updated = datetime.now()
         t.view_count = 0
         t.save()
+
+        tags = request.POST['tags'].split(',')
+        for tag in tags:
+            name = tag.strip()
+            slug = slugify(name)
+            try:
+                tg = Tag.objects.get(slug=slug)
+            except Tag.DoesNotExist:
+                tg = Tag(name=name, slug=slug)
+                tg.save()
+            t.tags.add(tg)
+
+        t.save()
+
         return HttpResponseRedirect('/talk/' + t.slug)
 
     template = loader.get_template('add.html')
