@@ -232,17 +232,14 @@ def settings(request):
 
 
 @require_http_methods(["GET"])
-def profile(request, username):
+def profile(request, username, page=1):
     user = User.objects.get(username=username)
     profile = Profile.objects.get(user=user)
 
     talks = Talk.objects.filter(author=user)
     paginator = Paginator(talks, 25)
-    page = request.GET.get('page')
     try:
         items = paginator.page(page)
-    except PageNotAnInteger:
-        items = paginator.page(1)
     except EmptyPage:
         items = paginator.page(paginator.num_pages)
 

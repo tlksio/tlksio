@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^auth/logout', main_views.logout, name='logout'),
     url(r'^settings', main_views.settings, name='settings'),
     url(r'^profile/(?P<username>[\w-]+)$', main_views.profile, name='profile'),
+    url(r'^profile/(?P<username>[\w-]+)/page/(?P<page>[0-9]+)$', main_views.profile, name='profile_page'),
     url(r'^profile/(?P<username>[\w-]+)/upvoted$', main_views.profile_upvoted, name='profile_upvoted'),
     url(r'^profile/(?P<username>[\w-]+)/favorited$', main_views.profile_favorited, name='profile_favorited'),
     url(r'^about', main_views.about, name='about'),
