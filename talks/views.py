@@ -18,7 +18,7 @@ from taggit.models import Tag
 
 
 @require_http_methods(["GET"])
-def latest(request):
+def latest(request, page=1):
     user = None
     if 'screen_name' in request.session:
         screen_name = request.session['screen_name']
@@ -28,11 +28,8 @@ def latest(request):
 
     talks = Talk.objects.all()
     paginator = Paginator(talks, 25)
-    page = request.GET.get('page')
     try:
         items = paginator.page(page)
-    except PageNotAnInteger:
-        items = paginator.page(1)
     except EmptyPage:
         items = paginator.page(paginator.num_pages)
 
