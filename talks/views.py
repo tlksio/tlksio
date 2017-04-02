@@ -41,7 +41,7 @@ def latest(request, page=1):
 
 
 @require_http_methods(["GET"])
-def popular(request):
+def popular(request, page=1):
     user = None
     if 'screen_name' in request.session:
         screen_name = request.session['screen_name']
@@ -51,11 +51,8 @@ def popular(request):
 
     talks = Talk.objects.annotate(vote_count=Count('votes')).order_by('-vote_count')
     paginator = Paginator(talks, 25)
-    page = request.GET.get('page')
     try:
         items = paginator.page(page)
-    except PageNotAnInteger:
-        items = paginator.page(1)
     except EmptyPage:
         items = paginator.page(paginator.num_pages)
 

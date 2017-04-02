@@ -42,7 +42,8 @@ urlpatterns = [
 
     url(r'^latest$', talk_views.latest, name='latest'),
     url(r'^latest/page/(?P<page>[0-9]+)$', talk_views.latest, name='latest_page'),
-    url(r'^popular', talk_views.popular, name='popular'),
+    url(r'^popular$', talk_views.popular, name='popular'),
+    url(r'^popular/page/(?P<page>[0-9]+)$', talk_views.popular, name='popular_page'),
 
     url(r'^tag/(?P<tag_slug>[\w-]+)', talk_views.tag, name='tag'),
 
