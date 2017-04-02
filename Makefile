@@ -17,6 +17,11 @@ deps:
 	pip3 install whoosh
 	pip3 install oauth2
 	pip3 install pytz
+	pip3 install django-lint
+	pip3 install flake8
+
+shell:
+	python3 manage.py shell
 
 test:
 	python3 manage.py test --keepdb -v2
