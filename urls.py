@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^profile/(?P<username>[\w-]+)/upvoted$', main_views.profile_upvoted, name='profile_upvoted'),
     url(r'^profile/(?P<username>[\w-]+)/upvoted/page/(?P<page>[0-9]+)$', main_views.profile_upvoted, name='profile_upvoted_page'),
     url(r'^profile/(?P<username>[\w-]+)/favorited$', main_views.profile_favorited, name='profile_favorited'),
+    url(r'^profile/(?P<username>[\w-]+)/favorited/page/(?P<page>[0-9]+)$', main_views.profile_favorited, name='profile_favorited_page'),
     url(r'^about', main_views.about, name='about'),
     url(r'^faq', main_views.faq, name='faq'),
     url(r'^contactus', main_views.contactus, name='contactus'),
