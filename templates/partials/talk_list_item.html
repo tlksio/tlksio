@@ -22,7 +22,7 @@
                 {% if not user %}
                     <a href="#votemodal" rel="modal:open" class="btn btn-primary">
                         <i class="glyphicon glyphicon-chevron-up"></i>
-                        <div class="counter">{{ talk.vote_count }}</div>
+                        <div class="counter">{{ talk.votes.count}}</div>
                     </a>
                 {% else %}
                     <button data-id="{{talk.id}}" class="btn btn-primary upvote"

@@ -10,6 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.views.decorators.http import require_http_methods
+from django.db.models import Count
 
 
 from talks.models import Talk
@@ -51,7 +52,7 @@ def popular(request):
 
     template = loader.get_template('popular.html')
 
-    talks = Talk.objects.order_by('-vote_count')
+    talks = Talk.objects.annotate(vote_count=Count('votes')).order_by('-vote_count')
     paginator = Paginator(talks, 25)
     page = request.GET.get('page')
     try:
@@ -126,8 +127,6 @@ def add(request):
         talk.created = datetime.now()
         talk.updated = datetime.now()
         talk.view_count = 0
-        talk.vote_count = 0
-        talk.fav_count = 0
         talk.save()
         return HttpResponseRedirect('/talk/'+talk.slug)
 

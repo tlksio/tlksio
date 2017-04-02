@@ -23,12 +23,12 @@
                         <div class="col-xs-4 votes">
                             <button type="button" data-toggle="modal" data-target=".voteAnon" class="btn btn-primary js-vote-anon">
                                 <i class="glyphicon glyphicon-chevron-up"></i>
-                                <div itemprop="ratingCount" class="counter">{{ talk.vote_count }}</div>
+                                <div itemprop="ratingCount" class="counter">{{ talk.votes.count }}</div>
                             </button>
                         </div>
                         <div class="col-xs-8 stats">
                             <div class="comments"><i class="fa fa-play"></i><span>{{ talk.view_count}} Plays</span></div>
-                            <div class="favorites"><i class="fa fa-heart"></i><span>{{ talk.fav_count }}  Favorites</span></div>
+                            <div class="favorites"><i class="fa fa-heart"></i><span>{{ talk.favorites.count }}  Favorites</span></div>
                         </div>
                     </div>
                     <hr>

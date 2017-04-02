@@ -41,12 +41,6 @@ from taggit.models import Tag
 Tag.objects.all().delete()
 from talks.models import Talk
 Talk.objects.all().delete()
-"""
-from talks.models import Favorite
-Favorite.objects.all().delete()
-from talks.models import Vote
-Vote.objects.all().delete()
-"""
 all_talks = client.techtalks.talks.find({})
 for talk in all_talks:
     t = Talk()
@@ -56,8 +50,6 @@ for talk in all_talks:
     t.description = talk['description']
     t.type = talk['type']
     t.view_count = talk['viewCount']
-    t.vote_count = talk['voteCount']
-    t.fav_count = talk['favoriteCount']
     t.author = User.objects.get(username=talk['author']['username'])
     dt = datetime.utcfromtimestamp(talk['created']/1000.0)
     dt_aware = timezone.make_aware(dt, timezone.get_current_timezone())
