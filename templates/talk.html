@@ -41,7 +41,7 @@
             <hr>
             <div class="row">
                 <div class="col-xs-12">
-                    <p>{{ talk.description }}</p>
+                    <p>{{ talk.description|safe }}</p>
                     <div class="tags">
                         {% for tag in talk.tags.all %}
                             <a href="{% url 'talk' talk.slug %}" class="label label-default tag">{{ tag.name }}</a>

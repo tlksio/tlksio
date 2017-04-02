@@ -8,7 +8,7 @@
         <h3 class="title">
             <a href="/talk/{{ talk.slug }}">{{ talk.title }}</a>
         </h3>
-        <p class="description">{{ talk.description }}</p>
+        <p class="description">{{ talk.description|safe }}</p>
         <div class="tags">
             {% for tag in talk.tags.all %}
                 <a href="/tag/{{ tag.slug }}" class="label label-default tag">{{ tag.name }}</a>
