@@ -5,6 +5,9 @@ import sys
 import django
 from datetime import datetime
 
+from django.db import IntegrityError
+from django.utils.text import slugify
+
 from django.utils import timezone
 
 sys.path.append("/home/raul/tlksio")
@@ -63,11 +66,19 @@ for talk in all_talks:
     t.save()
 
     for tag in talk['tags']:
+        slug = slugify(tag)
         try:
-            obj = Tag.objects.get(name=tag, slug=tag)
+            obj = Tag.objects.get(slug=slug)
         except Tag.DoesNotExist:
-            obj = Tag(name=tag, slug=tag)
-            obj.save()
+            obj = Tag(name=tag, slug=slug)
+            try:
+                obj.save()
+            except IntegrityError:
+                obj.slug=slug+"-"+t.code
+                obj.save()
+            except:
+                print("Unexpected error:", sys.exc_info()[0])
+                raise
         t.tags.add(tag)
 
     for favorite in talk['favorites']:

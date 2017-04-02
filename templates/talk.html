@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <hr>
-                    <a href="/profile/{{talk.author}}">
+                    <a href="{% url 'profile' talk.author %}">
                         <img src="{{talk.author.profile_set.all.0.avatar}}" title="{{talk.author.username}}" class="responsive img-circle" style="width: 32px">
                     </a>
                     <span class="created">{{ talk.created }}</span>
@@ -44,7 +44,7 @@
                     <p>{{ talk.description }}</p>
                     <div class="tags">
                         {% for tag in talk.tags.all %}
-                            <a href="/tag/{{ tag.slug }}" class="label label-default tag">{{ tag.name }}</a>
+                            <a href="{% url 'talk' talk.slug %}" class="label label-default tag">{{ tag.name }}</a>
                         {%  endfor %}
                     </div>
                 </div>

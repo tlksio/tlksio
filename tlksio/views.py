@@ -7,6 +7,7 @@ from django.template import loader
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.decorators.http import require_http_methods
 
 from talks.models import Talk
 from talks.models import Profile
@@ -16,6 +17,7 @@ from talks.models import Profile
 consumer = oauth.Consumer(settings.TWITTER_TOKEN, settings.TWITTER_SECRET)
 client = oauth.Client(consumer)
 
+@require_http_methods(["GET"])
 def index(request):
     user = None
     if 'screen_name' in request.session:
@@ -35,6 +37,7 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
+@require_http_methods(["GET"])
 def about(request):
     user = None
     if 'screen_name' in request.session:
@@ -48,6 +51,7 @@ def about(request):
     return HttpResponse(template.render(context, request))
 
 
+@require_http_methods(["GET"])
 def faq(request):
     user = None
     if 'screen_name' in request.session:
@@ -61,6 +65,7 @@ def faq(request):
     return HttpResponse(template.render(context, request))
 
 
+@require_http_methods(["GET"])
 def contactus(request):
     user = None
     if 'screen_name' in request.session:
@@ -74,6 +79,7 @@ def contactus(request):
     return HttpResponse(template.render(context, request))
 
 
+@require_http_methods(["GET"])
 def terms(request):
     user = None
     if 'screen_name' in request.session:
@@ -87,6 +93,7 @@ def terms(request):
     return HttpResponse(template.render(context, request))
 
 
+@require_http_methods(["GET"])
 def privacy(request):
     user = None
     if 'screen_name' in request.session:
@@ -100,6 +107,7 @@ def privacy(request):
     return HttpResponse(template.render(context, request))
 
 
+@require_http_methods(["GET"])
 def activity(request):
     user = None
     if 'screen_name' in request.session:
@@ -117,11 +125,15 @@ def activity(request):
 
     return HttpResponse(template.render(context, request))
 
+
+@require_http_methods(["GET"])
 def login(request):
     template = loader.get_template('login.html')
     context = {}
     return HttpResponse(template.render(context, request))
 
+
+@require_http_methods(["GET"])
 def auth_twitter(request):
     request_token_url = 'https://api.twitter.com/oauth/request_token'
     authenticate_url = 'https://api.twitter.com/oauth/authenticate'
@@ -138,6 +150,8 @@ def auth_twitter(request):
     url = "%s?oauth_token=%s" % (authenticate_url, request.session['oauth_token'])
     return HttpResponseRedirect(url)
 
+
+@require_http_methods(["GET"])
 def auth_twitter_callback(request):
     access_token_url = 'https://api.twitter.com/oauth/access_token'
 
@@ -172,9 +186,9 @@ def auth_twitter_callback(request):
         pobj.twitter_id = twitter_id
         pobj.oauth_token = data[b'oauth_token'].decode('UTF-8')
         pobj.oauth_token_secret = data[b'oauth_token_secret'].decode('UTF-8')
+        # TODO Save bio, avatar, url and email
         #pobj.bio = obj.bio
         #pobj.avatar = obj.avatar
-        print(data)
         pobj.save()
 
     request.session['screen_name'] = screen_name
@@ -183,6 +197,7 @@ def auth_twitter_callback(request):
     return HttpResponseRedirect("/")
 
 
+@require_http_methods(["GET"])
 def logout(request):
     del request.session['oauth_token']
     del request.session['oauth_token_secret']
@@ -191,6 +206,7 @@ def logout(request):
     return HttpResponseRedirect("/")
 
 
+@require_http_methods(["GET", "POST"])
 def settings(request):
     profile = None
     if 'screen_name' in request.session:
@@ -213,6 +229,8 @@ def settings(request):
 
     return HttpResponse(template.render(context, request))
 
+
+@require_http_methods(["GET"])
 def profile(request, username):
     user = User.objects.get(username=username)
     profile = Profile.objects.get(user=user)
@@ -238,6 +256,7 @@ def profile(request, username):
     return HttpResponse(template.render(context, request))
 
 
+@require_http_methods(["GET"])
 def profile_upvoted(request, username):
     user = User.objects.get(username=username)
     profile = Profile.objects.get(user=user)
@@ -263,6 +282,7 @@ def profile_upvoted(request, username):
     return HttpResponse(template.render(context, request))
 
 
+@require_http_methods(["GET"])
 def profile_favorited(request, username):
     user = User.objects.get(username=username)
     profile = Profile.objects.get(user=user)

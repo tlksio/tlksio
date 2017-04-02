@@ -1,13 +1,13 @@
 <div class="row event">
     <div class="col-xs-10">
-        <a href="/profile/{{ talk.author }}"><span>@</span><span>{{ talk.author }}</span></a>
+        <a href="{% url 'profile' talk.author %}"><span>@</span><span>{{ talk.author }}</span></a>
         <span>posted</span>
-        <a href="/talk/{{ talk.slug }}">{{ talk.title }}</a>
+        <a href="{% url 'talk' talk.slug %}">{{ talk.title }}</a>
         <br>
         <span class="created">{{ talk.created }}</span>
     </div>
     <div class="col-xs-2">
-        <a href="/profile/{{ talk.author }}">
+        <a href="{% url 'profile' talk.author %}">
             <img src="{{ talk.author.profile_set.all.0.avatar }}" title="@{{ talk.author }}" style="width: 32px" class="responsive img-circle">
         </a>
     </div>

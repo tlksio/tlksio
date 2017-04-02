@@ -9,13 +9,14 @@ from django.template import loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from django.views.decorators.http import require_http_methods
 
 
 from talks.models import Talk
 from taggit.models import Tag
 
 
-
+@require_http_methods(["GET"])
 def latest(request):
     user = None
     if 'screen_name' in request.session:
@@ -41,6 +42,7 @@ def latest(request):
     return HttpResponse(template.render(context, request))
 
 
+@require_http_methods(["GET"])
 def popular(request):
     user = None
     if 'screen_name' in request.session:
@@ -66,6 +68,7 @@ def popular(request):
     return HttpResponse(template.render(context, request))
 
 
+@require_http_methods(["GET"])
 def tag(request, tag_slug):
     user = None
     if 'screen_name' in request.session:
@@ -74,7 +77,7 @@ def tag(request, tag_slug):
 
     template = loader.get_template('tag.html')
 
-    items = Talk.objects.filter(tags__name__in=[tag_slug])[:25]
+    items = Talk.objects.filter(tags__slug__in=[tag_slug])[:25]
     tag = Tag.objects.get(slug=tag_slug)
 
     context = {
@@ -85,6 +88,7 @@ def tag(request, tag_slug):
     return HttpResponse(template.render(context, request))
 
 
+@require_http_methods(["GET"])
 def talk(request, talk_slug):
     user = None
     if 'screen_name' in request.session:
@@ -102,6 +106,7 @@ def talk(request, talk_slug):
     return HttpResponse(template.render(context, request))
 
 
+@require_http_methods(["GET","POST"])
 def add(request):
     user = None
     if 'screen_name' in request.session:
@@ -134,7 +139,7 @@ def add(request):
     return HttpResponse(template.render(context, request))
 
 
-
+@require_http_methods(["GET"])
 def play(request, talk_slug):
     user = None
     if 'screen_name' in request.session:
@@ -148,6 +153,8 @@ def play(request, talk_slug):
     item.save()
     return HttpResponseRedirect('https://www.youtube.com/watch?v='+item.code)
 
+
+@require_http_methods(["GET"])
 def favorite(request, talk_id):
     user = None
     if 'screen_name' in request.session:
@@ -165,6 +172,7 @@ def favorite(request, talk_id):
         return JsonResponse({"favorite": True})
 
 
+@require_http_methods(["GET"])
 def upvote(request, talk_id):
     user = None
     if 'screen_name' in request.session:
@@ -176,3 +184,4 @@ def upvote(request, talk_id):
         item.votes.add(user)
         item.save()
     return JsonResponse({"votes": item.votes.count()})
+

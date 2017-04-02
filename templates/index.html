@@ -39,7 +39,7 @@
                 <hr>
             {% endfor %}
             <div class="row">
-                <div class="col-xs-3"><a href="/latest">View more...</a></div>
+                <div class="col-xs-3"><a href="{% url 'latest' %}">View more...</a></div>
                 <div class="col-xs-9"></div>
             </div>
             <hr>
@@ -57,7 +57,7 @@
                 <hr>
             {% endfor %}
             <div class="row">
-                <div class="col-xs-3"><a href="/popular">View more...</a></div>
+                <div class="col-xs-3"><a href="{% url 'popular' %}">View more...</a></div>
                 <div class="col-xs-9"></div>
             </div>
             <hr>
