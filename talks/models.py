@@ -46,6 +46,8 @@ class Talk(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             self.slug = slugify(self.title)
+            if Talk.objects.filter(slug=self.slug).count() > 0:
+                self.slug = self.slug + "-" + self.code
 
         super(Talk, self).save(*args, **kwargs)
 
@@ -54,3 +56,4 @@ class Talk(models.Model):
         verbose_name_plural = "Talks"
         get_latest_by = "-created"
         ordering = ['-created', '-updated']
+
