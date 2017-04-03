@@ -28,7 +28,7 @@ test:
 	python3 manage.py test --keepdb -v2
 
 cover:
-	python3-coverage run --source='.' manage.py test tlksio talks
+	python3-coverage run --source=tlksio,talks manage.py test
 	python3-coverage report
 
 migrate:
