@@ -63,11 +63,11 @@ class TalkTests(TestCase):
 
         t2 = Talk()
         t2.title = "talk 4 title"
-        t2.code = "talk5code"
+        t2.code = "diffcode"
         t2.created = datetime.now(pytz.utc)
         t2.updated = datetime.now(pytz.utc)
         t2.save()
 
-        talks = Talk.objects.filter(slug="talk-4-title-talk5code")
+        talks = Talk.objects.filter(slug="talk-4-title-diffcode")
         self.assertIs(talks.count(), 1)
 
