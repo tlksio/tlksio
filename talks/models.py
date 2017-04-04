@@ -3,6 +3,8 @@ from django.db import models
 from taggit.managers import TaggableManager
 
 from django.contrib.auth.models import User
+from django.utils.text import slugify
+
 
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -19,16 +21,17 @@ class Profile(models.Model):
         verbose_name = "Profile"
         verbose_name_plural = "Profiles"
 
+
 class Talk(models.Model):
     TYPE_CHOICES = (
         ('youtube', 'Youtube'),
         ('vimeo', 'Vimeo'),
     )
-    code = models.CharField(max_length=25, null=False, blank=False)
-    title = models.CharField(max_length=200, null=False, blank=False)
+    code = models.CharField(max_length=25, unique=True, null=False, blank=False, default=None)
+    title = models.CharField(max_length=200, null=False, blank=False, default=None)
     slug = models.SlugField(max_length=200, unique=True, blank=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=False, default=1)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     tags = TaggableManager()
     created = models.DateTimeField('date created')
     updated = models.DateTimeField('date updated')
@@ -39,6 +42,14 @@ class Talk(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = slugify(self.title)
+            if Talk.objects.filter(slug=self.slug).count() > 0:
+                self.slug = self.slug + "-" + self.code
+
+        super(Talk, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Talk"

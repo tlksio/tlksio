@@ -44,7 +44,7 @@
                             <h3 class="title">
                                 <a href="/talk/{{ talk.object.slug }}">{{ talk.object.title }}</a>
                             </h3>
-                            <p class="description">{{ talk.object.description }}</p>
+                            <p class="description">{{ talk.object.description|safe }}</p>
                             <div class="tags">
                                 {% for tag in talk.object.tags.all %}
                                     <a href="/tag/{{ tag.slug }}" class="label label-default tag">{{ tag.name }}</a>
