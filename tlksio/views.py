@@ -32,6 +32,7 @@ def index(request):
     popular = Talk.objects.annotate(vote_count=Count('votes')).order_by('-vote_count')[:5]
 
     context = {
+        "active_navbar": "home",
         "user": user,
         "latest": latest,
         "popular": popular,
@@ -121,6 +122,7 @@ def activity(request):
     latest = Talk.objects.all()[:25]
 
     context = {
+        "active_navbar": "activity",
         "user": user,
         "latest": latest,
     }
