@@ -223,13 +223,13 @@ def settings(request):
         user.email = request.POST['email']
         user.save()
         p.bio = request.POST['bio']
-        profile.save()
+        p.save()
         return HttpResponseRedirect("/settings")
 
     template = loader.get_template('settings.html')
     context = {
-        "user": profile.user,
-        "profile": profile,
+        "user": p.user,
+        "profile": p,
     }
 
     return HttpResponse(template.render(context, request))
