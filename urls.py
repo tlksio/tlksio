@@ -50,7 +50,8 @@ urlpatterns = [
     url(r'^popular$', talk_views.popular, name='popular'),
     url(r'^popular/page/(?P<page>[0-9]+)$', talk_views.popular, name='popular_page'),
 
-    url(r'^tag/(?P<tag_slug>[\w-]+)', talk_views.tag, name='tag'),
+    url(r'^tag/(?P<tag_slug>[\w-]+)$', talk_views.tag, name='tag'),
+    url(r'^tag/(?P<tag_slug>[\w-]+)/page/(?P<page>[0-9]+)$', talk_views.tag, name='tag_page'),
 
     url(r'^talk/add$', talk_views.add, name='add'),
     url(r'^talk/play/(?P<talk_slug>[0-9]+)', talk_views.play, name='play'),
