@@ -63,7 +63,7 @@ def popular(request, page=1):
 
 
 @require_http_methods(["GET"])
-def tag(request, tag_slug):
+def tag(request, tag_slug, page=1):
     user = None
     if 'screen_name' in request.session:
         screen_name = request.session['screen_name']
@@ -71,7 +71,13 @@ def tag(request, tag_slug):
 
     template = loader.get_template('tag.html')
 
-    items = Talk.objects.filter(tags__slug__in=[tag_slug])[:25]
+    talks = Talk.objects.filter(tags__slug__in=[tag_slug])[:25]
+    paginator = Paginator(talks, 25)
+    try:
+        items = paginator.page(page)
+    except EmptyPage:
+        items = paginator.page(paginator.num_pages)
+
     tag_item = Tag.objects.get(slug=tag_slug)
 
     context = {
