@@ -1,3 +1,6 @@
+import json
+import urllib.request
+
 from django.db import models
 
 from taggit.managers import TaggableManager
@@ -39,6 +42,7 @@ class Talk(models.Model):
     type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='youtube')
     favorites = models.ManyToManyField(User, blank=True, related_name='favorites')
     votes = models.ManyToManyField(User, blank=True, related_name='votes')
+    thumbnail = models.URLField('video thumbnail', null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -48,6 +52,13 @@ class Talk(models.Model):
             self.slug = slugify(self.title)
             if Talk.objects.filter(slug=self.slug).count() > 0:
                 self.slug = self.slug + "-" + self.code
+
+        # Get video thubnail with an additional API call if it is a vimeo
+        # video.
+        if self.type == 'vimeo':
+            raw_data = urllib.request.urlopen("https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/"+self.code).read()
+            data = json.loads(raw_data.decode("utf-8"))
+            self.thumbnail = data['thumbnail_url']
 
         super(Talk, self).save(*args, **kwargs)
 
