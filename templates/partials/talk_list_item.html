@@ -1,7 +1,11 @@
 <div class="row talk">
     <div class="col-xs-2 thumb">
         <a href="/talk/play/{{ talk.slug }}">
+            {% if talk.type == "youtube" %}
             <img src="http://img.youtube.com/vi/{{ talk.code }}/mqdefault.jpg" title="{{ talk.title }}" class="img-responsive img-circle thumbnail">
+            {% else %}
+            <img src="{{ talk.thumbnail }}" title="{{ talk.title }}" class="img-responsive img-circle thumbnail">
+            {% endif %}
         </a>
     </div>
     <div class="col-xs-9 content">
