@@ -1,0 +1,7 @@
+#!/home/raul/tlksio/env/bin/python3.4
+
+import warnings
+warnings.simplefilter('default', DeprecationWarning)
+
+from logilab.common.pytest import run
+run()

@@ -1,0 +1,3 @@
+[console_scripts]
+django-lint = DjangoLint.script:main
+
