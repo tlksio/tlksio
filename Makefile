@@ -11,16 +11,7 @@ distclean: clean
 	rm -rf db.sqlite3
 
 deps:
-	pip install Django
-	pip install django-taggit
-	pip install django-haystack
-	pip install pymongo
-	pip install whoosh
-	pip install oauth2
-	pip install pytz
-	pip install django-lint
-	pip install flake8
-	pip install coverage
+	pip install -r requirements.txt
 
 shell:
 	python manage.py shell
