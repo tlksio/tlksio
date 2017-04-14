@@ -26,3 +26,17 @@ cover:
 migrate:
 	python manage.py makemigrations
 	python manage.py migrate
+
+uwsgi:
+	/usr/local/bin/uwsgi --chdir=/home/raul/tlksio \
+		--module=wsgi:application \
+		--master --pidfile=/tmp/project-master.pid \
+		--socket :8080 \
+		--processes=5 \
+		--max-requests=5000 \
+		--vacuum \
+		--home=/home/raul/tlksio/env
+		# --http 127.0.0.1:8080
+		# daemonize=/home/raul/tlksio/yourproject.log
+
+
