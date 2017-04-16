@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: django-lint
+Version: 2.0.4
+Summary: Static analysis tool for Django projects.
+Home-page: https://chris-lamb.co.uk/projects/django-lint
+Author: Chris Lamb
+Author-email: chris@chris-lamb.co.uk
+License: BSD
+Description: UNKNOWN
+Platform: UNKNOWN

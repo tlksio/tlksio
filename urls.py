@@ -54,7 +54,7 @@ urlpatterns = [
     url(r'^tag/(?P<tag_slug>[\w-]+)/page/(?P<page>[0-9]+)$', talk_views.tag, name='tag_page'),
 
     url(r'^talk/add$', talk_views.add, name='add'),
-    url(r'^talk/play/(?P<talk_slug>[0-9]+)', talk_views.play, name='play'),
+    url(r'^talk/play/(?P<talk_slug>[\w-]+)', talk_views.play, name='play'),
     url(r'^talk/favorite/(?P<talk_id>[0-9]+)', talk_views.favorite, name='favorite'),
     url(r'^talk/upvote/(?P<talk_id>[0-9]+)', talk_views.upvote, name='upvote'),
     url(r'^talk/(?P<talk_slug>[\w-]+)', talk_views.talk, name='talk'),
@@ -64,4 +64,4 @@ urlpatterns = [
     url(r'^search/', include('haystack.urls')),
 ]
 
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+#urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

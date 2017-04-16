@@ -1,5 +1,5 @@
 runserver:
-	python3 manage.py runserver vps123446.vps.ovh.ca:8080
+	python manage.py runserver vps123446.vps.ovh.ca:8080
 
 clean:
 	find . -name "__pycache__" -exec rm -rf "{}" \;
@@ -11,27 +11,32 @@ distclean: clean
 	rm -rf db.sqlite3
 
 deps:
-	pip3 install Django
-	pip3 install django-taggit
-	pip3 install django-haystack
-	pip3 install pymongo
-	pip3 install whoosh
-	pip3 install oauth2
-	pip3 install pytz
-	pip3 install django-lint
-	pip3 install flake8
-	pip3 install coverage
+	pip install -r requirements.txt
 
 shell:
-	python3 manage.py shell
+	python manage.py shell
 
 test:
-	python3 manage.py test --keepdb -v2
+	python manage.py test --keepdb -v2
 
 cover:
-	python3-coverage run --source=tlksio,talks manage.py test
-	python3-coverage report
+	coverage run --source=tlksio,talks manage.py test
+	coverage report
 
 migrate:
-	python3 manage.py makemigrations
-	python3 manage.py migrate
+	python manage.py makemigrations
+	python manage.py migrate
+
+uwsgi:
+	/usr/local/bin/uwsgi --chdir=/home/raul/tlksio \
+		--module=wsgi:application \
+		--master --pidfile=/tmp/project-master.pid \
+		--socket :8080 \
+		--processes=5 \
+		--max-requests=5000 \
+		--vacuum \
+		--home=/home/raul/tlksio/env
+		# --http 127.0.0.1:8080
+		# daemonize=/home/raul/tlksio/yourproject.log
+
+
