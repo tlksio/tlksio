@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 
 from tlksio import views as main_views
 from talks import views as talk_views
+from talks import feeds as talk_rss
 
 urlpatterns = [
     url(r'^$', main_views.index, name='index'),
@@ -46,6 +47,7 @@ urlpatterns = [
     url(r'^activity', main_views.activity, name='activity'),
 
     url(r'^latest$', talk_views.latest, name='latest'),
+    url(r'^latest/feed$', talk_rss.LatestTalksFeed(), name='latest_rss'),
     url(r'^latest/page/(?P<page>[0-9]+)$', talk_views.latest, name='latest_page'),
     url(r'^popular$', talk_views.popular, name='popular'),
     url(r'^popular/page/(?P<page>[0-9]+)$', talk_views.popular, name='popular_page'),
