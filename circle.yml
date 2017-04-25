@@ -3,6 +3,9 @@ machine:
     - cd /opt/circleci/.pyenv; git pull
   python:
     version: 3.6.0
+  environment:
+    TWITTER_TOKEN: twitter_token
+    TWITTER_SECRET: twitter_secret
 
 dependencies:
   override:
