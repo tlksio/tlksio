@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% include "partials/head.html" %}
-</head>
-<body>
-
-{% include "partials/navbar.html" %}
-
+{% extends "layouts/default.html" %}
+{% block title %}@{{user.username}} profile on vtalks.net{% endblock %}
+{% block content %}
 <div class="container profile">
     <div class="row information">
         <div class="col-xs-4">
@@ -54,8 +48,4 @@
         </div>
     </div>
 </div>
-
-{% include "partials/footer.html" %}
-{% include "partials/js.html" %}
-</body>
-</html>
+{% endblock %}

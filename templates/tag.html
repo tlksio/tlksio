@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% include "partials/head.html" %}
-</head>
-<body>
-
-{% include "partials/navbar.html" %}
-
+{% extends "layouts/default.html" %}
+{% block title %}Latest talks tagged as {{ tag }} on vtalks.net{% endblock %}
+{% block content %}
 <div class="container latest-talks">
     <div class="row">
         <div class="col-xs-12 talk-list">
@@ -34,8 +28,4 @@
         </div>
     </div>
 </div>
-
-{% include "partials/footer.html" %}
-{% include "partials/js.html" %}
-</body>
-</html>
+{% endblock %}
