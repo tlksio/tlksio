@@ -1,6 +1,6 @@
-# Contributing to tlks.io
+# Contributing to vtalks.net
 
-Looking to contribute something to tlks.io? **Here's how you can help.**
+Looking to contribute something to vtalks.net? **Here's how you can help.**
 
 Please take a moment to review this document in order to make the contribution
 process easy and effective for everyone involved.
