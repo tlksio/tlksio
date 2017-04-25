@@ -1,7 +1,7 @@
-tlks.io
-=======
+vtalks.net
+==========
 
-This is tlks.io
+This is vtalks.net
 
 Status
 ======
