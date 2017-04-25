@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% include "partials/head.html" %}
-</head>
-<body>
-
-{% include "partials/register_modal.html" %}
-
-{% include "partials/navbar.html" %}
-
+{% extends "layouts/default.html" %}
+{% block title %}vtalks.net : A curated and community driven list of technical talks{% endblock %}
+{% block content %}
 <div class="container search-form">
     <div class="row">
         <div class="col-xs-12">
@@ -64,8 +56,4 @@
         </div>
     </div>
 </div>
-
-{% include "partials/footer.html" %}
-{% include "partials/js.html" %}
-</body>
-</html>
+{% endblock %}
