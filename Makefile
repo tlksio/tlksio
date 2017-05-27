@@ -15,7 +15,7 @@ distclean: clean
 
 .PHONY: deps-upgrade
 deps-upgrade:
-	pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+	pip install -r requirements.txt --upgrade
 
 .PHONY: deps
 deps: deps-upgrade
